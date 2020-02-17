@@ -1,0 +1,206 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "LexBotOne",
+    "version": "1",
+    "intents": [
+      {
+        "name": "IntroductionIntent",
+        "version": "1",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "What is your name",
+          "Who are you",
+          "Have we met before",
+          "I forgot your name",
+          "Could you tell your name"
+        ],
+        "slots": [],
+        "conclusionStatement": {
+          "messages": [
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "My name is Bot, may I know your name?"
+            },
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "I’m Bot, could you call your name?"
+            },
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "My name is Bot, what is your name?"
+            },
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Please call m eBot. How can I call you?"
+            }
+          ]
+        }
+      },
+      {
+        "name": "GreetingIntent",
+        "version": "1",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Hello",
+          "Hi",
+          "Hi there",
+          "How are you"
+        ],
+        "slots": [],
+        "conclusionStatement": {
+          "messages": [
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Hi, I’m fine, thank you"
+            },
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Hi, great to see you"
+            },
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Hello!"
+            }
+          ]
+        }
+      },
+      {
+        "rejectionStatement": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "I see that"
+            }
+          ]
+        },
+        "name": "UserNameIntent",
+        "version": "5",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "My name is {name}",
+          "Please call me {name}",
+          "My friends call me {name}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "Names",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What is your name?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "name"
+          }
+        ],
+        "followUpPrompt": {
+          "prompt": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Hello {name}, would you like a chat?"
+              }
+            ],
+            "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://pub-imgs-8765786548765123.s3.amazonaws.com/mono-font-curled-braces.jpg\",\"subTitle\":\"Your name is {name}\",\"title\":\"Hello\",\"buttons\":[{\"text\":\"Hello item\",\"value\":\"Hello\"},{\"text\":\"Name item\",\"value\":\"My name is Roger\"}]}]}",
+            "maxAttempts": 3
+          },
+          "rejectionStatement": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "No problem {name}, just asked"
+              },
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "That’s ok {name}, no problem"
+              }
+            ]
+          }
+        },
+        "confirmationPrompt": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "are you sure your name is {name}?"
+            }
+          ],
+          "maxAttempts": 3
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "name": "Names",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "John"
+          }
+        ]
+      }
+    ],
+    "voiceId": "Salli",
+    "childDirected": false,
+    "locale": "en-US",
+    "idleSessionTTLInSeconds": 60,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I did not understand that"
+        },
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 2
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Have a nice day!"
+        },
+        {
+          "contentType": "PlainText",
+          "content": "It was nice to talk to you"
+        },
+        {
+          "contentType": "PlainText",
+          "content": "See you next time"
+        }
+      ]
+    },
+    "detectSentiment": false
+  }
+}

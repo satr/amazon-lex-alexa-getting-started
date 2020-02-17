@@ -1,0 +1,23 @@
+{
+  "messageVersion": "1.0",
+  "invocationSource": "DialogCodeHook",
+  "userId": "user-id-ucflekvs05b5qa2hdi56573mv2dn7sgt",
+  "sessionAttributes":{
+    "attr1": "SessionVal1",
+    "attr2": "SessionVal2"
+  },
+  "bot": {
+    "name": "BotName",
+    "alias": "$LATEST",
+    "version": "$LATEST"
+  },
+  "outputDialogMode": "Text",
+  "currentIntent": {
+    "name": "RecognisedIntentName",
+    "slots": {
+        "BookTitle": "Some text",
+        "AuthorLastName": "Smith"
+      },
+    "confirmationStatus": "None"
+  }
+}
