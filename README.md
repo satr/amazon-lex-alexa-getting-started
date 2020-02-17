@@ -1,1 +1,1 @@
-# miles-camp-2020-mars-aws-lex-alexa
+# Amazon Lex and Amazin Alexa: getting started
