@@ -1,8 +1,8 @@
 package io.github.satr.aws.lambda.bookstore;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

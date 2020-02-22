@@ -1,7 +1,7 @@
 {
   "messageVersion": "1.0",
   "invocationSource": "DialogCodeHook",
-  "userId": "user-id-ucflekvs05b5qa2hdi56573mv2dn7sgt",
+  "userId": "user-id-as-some-random-character-set",
   "sessionAttributes":{
     "attr1": "SessionVal1",
     "attr2": "SessionVal2"
@@ -15,8 +15,8 @@
   "currentIntent": {
     "name": "RecognisedIntentName",
     "slots": {
-        "BookTitle": "Some text",
-        "AuthorLastName": "Smith"
+        "BookTitle": "Some Book Title",
+        "AuthorLastName": "Some Author Last Name"
       },
     "confirmationStatus": "None"
   }

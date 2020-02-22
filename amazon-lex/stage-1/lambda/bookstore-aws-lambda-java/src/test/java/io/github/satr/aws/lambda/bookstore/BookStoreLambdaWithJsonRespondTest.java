@@ -3,6 +3,7 @@ package io.github.satr.aws.lambda.bookstore;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +12,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookStoreLambdaTest {
-    private BookStoreLambda lambda;
+public class BookStoreLambdaWithJsonRespondTest {
+    private BookStoreLambdaWithJsonRespond lambda;
     @Mock
     Context context;
     @Mock
@@ -24,7 +24,7 @@ public class BookStoreLambdaTest {
 
     @Before
     public void setUp() throws Exception {
-        lambda = new BookStoreLambda();
+        lambda = new BookStoreLambdaWithJsonRespond();
         when(context.getLogger()).thenReturn(lambdaLogger);
     }
 
@@ -32,20 +32,13 @@ public class BookStoreLambdaTest {
     public void handleRequestWithSimpleRequest() {
         Map<String, Object> map = ObjectMother.createMapFromJson("simple-request.json");
         Object respond = lambda.handleRequest(map, context);
-        assertNotNull(respond);
+        Assert.assertNotNull(respond);
     }
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequest() {
         Map<String, Object> map = ObjectMother.createMapFromJson("full-order-book-intent-request.json");
         Object respond = lambda.handleRequest(map, context);
-        assertNotNull(respond);
-    }
-
-    @Test
-    public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() {
-        Map<String, Object> map = ObjectMother.createMapFromJson("full-order-book-intent-request.json");
-//        Object respond = (LexRespond)lambda.handleRequest(map, context);
-//        assertNotNull(respond);
+        Assert.assertNotNull(respond);
     }
 }
