@@ -21,3 +21,9 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+amazon-lex/stage-1/lambda/bookstore-aws-lambda-java/.gradle
+amazon-lex/stage-1/lambda/bookstore-aws-lambda-java/.idea
+amazon-lex/stage-1/lambda/bookstore-aws-lambda-java/build
+amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/.gradle
+amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/.idea
+amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/build

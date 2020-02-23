@@ -1,0 +1,474 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "BookStoreStageThree",
+    "version": "2",
+    "intents": [
+      {
+        "name": "SearchBookByTitleIntent",
+        "version": "9",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "Do you have a book which {WordsPosition}  with {BookTitle}",
+          "Do you have a book which title {WordsPosition}  {BookTitle}",
+          "Do you have a book with a name {BookTitle}",
+          "Any book with {BookTitle}",
+          "Any book with title {BookTitle}",
+          "Have you book with  a name {BookTitle}",
+          "Could you check if you have a book with a title {BookTitle}",
+          "Could you check if you have a book {BookTitle}",
+          "Could you check if you have a book with a title {WordsPosition} with {BookTitle}",
+          "Could you check if you have a book with {WordsPosition} with {BookTitle}",
+          "Do you have a book which {WordsPosition} {BookTitle}",
+          "Any book with title  {WordsPosition}  {BookTitle}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.Book",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What words title contains?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "BookTitle"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "TextPosition",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Optional",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Where are words in the title (start, contains, ends)?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "WordsPosition"
+          }
+        ]
+      },
+      {
+        "name": "BookDetailsIntent",
+        "version": "3",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "{ChooseFromListAction} the book number {ItemNumber}",
+          "{ChooseFromListAction} me the book {ItemNumber}",
+          "{ChooseFromListAction} details of the book {ItemNumber}",
+          "Please {ChooseFromListAction} the book number {ItemNumber}",
+          "Please {ChooseFromListAction} the {PositionInSequence} book",
+          "Please {ChooseFromListAction} the {PositionInSequence} one",
+          "{ChooseFromListAction} details of the {PositionInSequence} one",
+          "{ChooseFromListAction} details of the {PositionInSequence} book",
+          "{ChooseFromListAction} the {PositionInSequence} one",
+          "{ChooseFromListAction} the {PositionInSequence} book",
+          "I will {ChooseFromListAction} the number {ItemNumber}",
+          "I will {ChooseFromListAction} number {ItemNumber}",
+          "Let me {ChooseFromListAction} the book number {ItemNumber}",
+          "I will {ChooseFromListAction} the {PositionInSequence} book",
+          "I would like to {ChooseFromListAction} number {ItemNumber}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "ChooseFromListAction",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Would you like to see any of books?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 3,
+            "name": "ChooseFromListAction"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Optional",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which book number in the list?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "ItemNumber"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "PositionInSequence",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Optional",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which book in the list?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "PositionInSequence"
+          }
+        ]
+      },
+      {
+        "name": "IntroductionIntent",
+        "version": "2",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Help",
+          "What can I do",
+          "What is it",
+          "What are my options",
+          "I would li"
+        ],
+        "slots": [],
+        "conclusionStatement": {
+          "messages": [
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Hi! This is a book store bot. Please tell me what book you would like to find."
+            }
+          ]
+        }
+      },
+      {
+        "name": "PaymentIntent",
+        "version": "5",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "How much is it",
+          "What is a price",
+          "How much does it cost",
+          "What is price",
+          "What's a price"
+        ],
+        "slots": []
+      },
+      {
+        "name": "OrderBookIntent",
+        "version": "7",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "I need a book",
+          "I am looking for a book",
+          "I would like to order a book",
+          "I would like to order a book {BookTitle}",
+          "I would like to order a book {BookTitle} by {BookAuthor}",
+          "I am looking for a book of {BookAuthor}",
+          "I am looking for a book {BookTitle}",
+          "I would like to order a book of {BookAuthor}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.Person",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Who is the author?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "BookAuthor"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.Book",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What is the title of a book?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "BookTitle"
+          }
+        ]
+      },
+      {
+        "name": "ConfirmOrderIntent",
+        "version": "3",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "I will buy it",
+          "I will take it",
+          "Thank you I will take it",
+          "Thanks I will buy it",
+          "I would like to buy it"
+        ],
+        "slots": []
+      }
+    ],
+    "slotTypes": [
+      {
+        "name": "ChooseFromListAction",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "show",
+            "synonyms": [
+              "give",
+              "select",
+              "choose",
+              "pick"
+            ]
+          },
+          {
+            "value": "order",
+            "synonyms": [
+              "get",
+              "take"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "name": "PositionInSequence",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "sixth",
+            "synonyms": [
+              "6th",
+              "6-th"
+            ]
+          },
+          {
+            "value": "tenth",
+            "synonyms": [
+              "10th",
+              "10-th"
+            ]
+          },
+          {
+            "value": "last",
+            "synonyms": [
+              "bottom"
+            ]
+          },
+          {
+            "value": "third",
+            "synonyms": [
+              "3rd",
+              "3-rd"
+            ]
+          },
+          {
+            "value": "seventh",
+            "synonyms": [
+              "7th",
+              "7-th"
+            ]
+          },
+          {
+            "value": "twelfth",
+            "synonyms": [
+              "12th",
+              "12-th"
+            ]
+          },
+          {
+            "value": "eighth",
+            "synonyms": [
+              "8th",
+              "8-th"
+            ]
+          },
+          {
+            "value": "ninth",
+            "synonyms": [
+              "9th",
+              "9-th"
+            ]
+          },
+          {
+            "value": "fifth",
+            "synonyms": [
+              "5th",
+              "5-th"
+            ]
+          },
+          {
+            "value": "eleventh",
+            "synonyms": [
+              "11th",
+              "11-th"
+            ]
+          },
+          {
+            "value": "first",
+            "synonyms": [
+              "1st",
+              "1-st"
+            ]
+          },
+          {
+            "value": "second",
+            "synonyms": [
+              "2nd",
+              "2-nd"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "description": "Position of a word in the requested text",
+        "name": "TextPosition",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "contains",
+            "synonyms": [
+              "contain"
+            ]
+          },
+          {
+            "value": "middle",
+            "synonyms": [
+              "in middle",
+              "in the middle",
+              "in it"
+            ]
+          },
+          {
+            "value": "excludes",
+            "synonyms": [
+              "exclude",
+              "excluding",
+              "exclusive",
+              "without",
+              "out of"
+            ]
+          },
+          {
+            "value": "ends",
+            "synonyms": [
+              "finishes",
+              "end",
+              "stops",
+              "stop",
+              "at the end",
+              "ending"
+            ]
+          },
+          {
+            "value": "has",
+            "synonyms": [
+              "have",
+              "with"
+            ]
+          },
+          {
+            "value": "starts",
+            "synonyms": [
+              "start",
+              "begins",
+              "begin",
+              "beginning",
+              "starting"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      }
+    ],
+    "voiceId": "Salli",
+    "childDirected": false,
+    "locale": "en-US",
+    "idleSessionTTLInSeconds": 60,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 5
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Goodbye."
+        }
+      ]
+    },
+    "detectSentiment": false
+  }
+}
