@@ -9,7 +9,7 @@ public final class BookFormatter {
         builder.append(String.format(" Author: %s%s", book.getAuthor(), newLineDelimiter));
         builder.append(String.format(" Issued: %s%s", book.getIssueYear(), newLineDelimiter));
         builder.append(String.format("   ISBN: %s%s", book.getIsbn(), newLineDelimiter));
-        return null;
+        return builder.toString();
     }
 
     public static String getShortDescription(Book book) {

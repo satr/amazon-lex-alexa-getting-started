@@ -9,7 +9,7 @@ public class Book {
     private int issueYear;
 
     public Book() {
-        this.isbn = String.valueOf(UUID.randomUUID().toString().hashCode());
+        this.isbn = String.valueOf(Math.abs(UUID.randomUUID().toString().hashCode()));//fake ISBN
     }
 
     public String getIsbn() {

@@ -16,7 +16,7 @@ public class IntentHandlerStrategyFactory {
     public IntentHandlerStrategyFactory(BookStorageService bookStorageService, FoundBookListService foundBookListService, BookOrderService bookOrderService) {
         strategies.put(IntentName.OrderBook, new OrderBookIntentHandlerStrategy());
         strategies.put(IntentName.SearchBookByTitle, new SearchBookByTitleIntentHandlerStrategy(bookStorageService, foundBookListService));
-        strategies.put(IntentName.BookDetails, new BookDetailsIntentHandlerStrategy(bookStorageService, foundBookListService, bookOrderService));
+        strategies.put(IntentName.SelectBook, new SelectBookIntentHandlerStrategy(bookStorageService, foundBookListService, bookOrderService));
     }
 
     public IntentHandlerStrategy getBy(String intentName) {

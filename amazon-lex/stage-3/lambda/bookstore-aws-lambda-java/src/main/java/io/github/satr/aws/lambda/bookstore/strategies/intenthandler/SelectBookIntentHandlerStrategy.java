@@ -16,11 +16,11 @@ import io.github.satr.aws.lambda.bookstore.strategies.selectbook.ShowBookDetails
 import java.util.HashMap;
 import java.util.Map;
 
-public class BookDetailsIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
+public class SelectBookIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
     private Map<String, SelectBookStrategy> selectBookStrategies = new HashMap<>();
     private NotSelectedBookStrategy notSelectedBookStrategy;
 
-    public BookDetailsIntentHandlerStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BookOrderService bookOrderService) {
+    public SelectBookIntentHandlerStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BookOrderService bookOrderService) {
         selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Show, new ShowBookDetailsStrategy(bookStorageService, foundBookListService));
         selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Order, new OrderBookStrategy(bookStorageService, foundBookListService, bookOrderService));
         notSelectedBookStrategy = new NotSelectedBookStrategy(bookStorageService, foundBookListService);

@@ -4,5 +4,5 @@ package io.github.satr.aws.lambda.bookstore.constants;
 public final class IntentName {
     public static String OrderBook = "OrderBookIntent";
     public static String SearchBookByTitle = "SearchBookByTitleIntent";
-    public static String BookDetails = "BookDetailsIntent";
+    public static String SelectBook = "SelectBookIntent";
 }

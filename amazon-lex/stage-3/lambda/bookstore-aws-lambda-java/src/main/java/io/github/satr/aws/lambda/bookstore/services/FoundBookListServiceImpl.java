@@ -37,7 +37,7 @@ public class FoundBookListServiceImpl implements FoundBookListService {
 
     private void tryGetByNumberInSequence(OperationValueResult<Book> result, Integer itemNumber) {
         if (itemNumber == null || itemNumber <= 0 || itemNumber > foundBookList.size()) {
-            result.addError("Cannot identify a book in the list by item number %s. Please try again.", itemNumber);
+            result.addError("Cannot identify a book in the list by item number %s.", itemNumber);
             return;
         }
         result.setValue(foundBookList.get(itemNumber - 1));

@@ -6,7 +6,7 @@
   },
   "resource": {
     "name": "BookStoreStageThree",
-    "version": "2",
+    "version": "1",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
@@ -71,8 +71,51 @@
         ]
       },
       {
-        "name": "BookDetailsIntent",
-        "version": "3",
+        "name": "IntroductionIntent",
+        "version": "2",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Help",
+          "What can I do",
+          "What is it",
+          "What are my options",
+          "I would li"
+        ],
+        "slots": [],
+        "conclusionStatement": {
+          "messages": [
+            {
+              "groupNumber": 1,
+              "contentType": "PlainText",
+              "content": "Hi! This is a book store bot. Please tell me what book you would like to find."
+            }
+          ]
+        }
+      },
+      {
+        "name": "PaymentIntent",
+        "version": "5",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "How much is it",
+          "What is a price",
+          "How much does it cost",
+          "What is price",
+          "What's a price"
+        ],
+        "slots": []
+      },
+      {
+        "name": "SelectBookIntent",
+        "version": "1",
         "fulfillmentActivity": {
           "codeHook": {
             "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
@@ -152,49 +195,6 @@
             "name": "PositionInSequence"
           }
         ]
-      },
-      {
-        "name": "IntroductionIntent",
-        "version": "2",
-        "fulfillmentActivity": {
-          "type": "ReturnIntent"
-        },
-        "sampleUtterances": [
-          "Help",
-          "What can I do",
-          "What is it",
-          "What are my options",
-          "I would li"
-        ],
-        "slots": [],
-        "conclusionStatement": {
-          "messages": [
-            {
-              "groupNumber": 1,
-              "contentType": "PlainText",
-              "content": "Hi! This is a book store bot. Please tell me what book you would like to find."
-            }
-          ]
-        }
-      },
-      {
-        "name": "PaymentIntent",
-        "version": "5",
-        "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
-        },
-        "sampleUtterances": [
-          "How much is it",
-          "What is a price",
-          "How much does it cost",
-          "What is price",
-          "What's a price"
-        ],
-        "slots": []
       },
       {
         "name": "OrderBookIntent",
