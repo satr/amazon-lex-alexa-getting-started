@@ -12,6 +12,6 @@ public class NotSelectedBookStrategy extends AbstractSelectBookStrategy {
 
     @Override
     protected void processCustom(LexRespond respond, Book selectedBook) {
-        //TODO
+        respond.getDialogAction().getMessage().setContent("Book is not selected.");
     }
 }

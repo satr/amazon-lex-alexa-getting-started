@@ -42,6 +42,10 @@ public class LexRequest {
         return sessionAttributes;
     }
 
+    public String getSessionAttribute(String key) {
+        return (String) sessionAttributes.get(key);
+    }
+
     public void setConfirmationStatus(ConfirmationStatus confirmationStatus) {
         this.confirmationStatus = confirmationStatus;
     }

@@ -5,11 +5,11 @@ import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.services.BookOrderService;
+import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.NotSelectedBookStrategy;
-import io.github.satr.aws.lambda.bookstore.strategies.selectbook.OrderBookStrategy;
+import io.github.satr.aws.lambda.bookstore.strategies.selectbook.AddBookToBasketStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.SelectBookStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.ShowBookDetailsStrategy;
 
@@ -20,9 +20,9 @@ public class SelectBookIntentHandlerStrategy extends AbstractIntentHandlerStrate
     private Map<String, SelectBookStrategy> selectBookStrategies = new HashMap<>();
     private NotSelectedBookStrategy notSelectedBookStrategy;
 
-    public SelectBookIntentHandlerStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BookOrderService bookOrderService) {
+    public SelectBookIntentHandlerStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BasketService basketService) {
         selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Show, new ShowBookDetailsStrategy(bookStorageService, foundBookListService));
-        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Order, new OrderBookStrategy(bookStorageService, foundBookListService, bookOrderService));
+        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Order, new AddBookToBasketStrategy(bookStorageService, foundBookListService, basketService));
         notSelectedBookStrategy = new NotSelectedBookStrategy(bookStorageService, foundBookListService);
     }
 

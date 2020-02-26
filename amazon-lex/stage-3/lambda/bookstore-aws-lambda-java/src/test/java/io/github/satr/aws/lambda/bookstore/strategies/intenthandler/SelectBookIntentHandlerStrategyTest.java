@@ -1,15 +1,15 @@
 package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.common.OperationValueResult;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.services.BookOrderService;
+import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class SelectBookIntentHandlerStrategyTest {
     @Mock
     FoundBookListService foundBookListService;
     @Mock
-    BookOrderService bookOrderService;
+    BasketService bookOrderService;
     @Mock
     OperationValueResult<Book> selectedBookResult;
     private SelectBookIntentHandlerStrategy strategy;

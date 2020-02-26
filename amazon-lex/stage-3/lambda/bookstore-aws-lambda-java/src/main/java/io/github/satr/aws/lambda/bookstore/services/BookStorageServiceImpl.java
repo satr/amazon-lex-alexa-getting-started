@@ -52,6 +52,11 @@ public class BookStorageServiceImpl implements BookStorageService {
         return searchFor(item -> item.getTitle().toLowerCase().equals(text.toLowerCase()));
     }
 
+    @Override
+    public Book getBookByIsbn(String isbn) {
+        return books.stream().filter(book -> book.getIsbn().equals(isbn)).findFirst().get();
+    }
+
     private List<Book> searchFor(Predicate<Book> containsPredicate) {
         return books.stream().filter(containsPredicate).collect(Collectors.toList());
     }

@@ -18,11 +18,11 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     private IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
     public BookStoreLambda() {
-        this(new BookStorageServiceImpl(), new FoundBookListServiceImpl(), new BookOrderServiceImpl());
+        this(new BookStorageServiceImpl(), new FoundBookListServiceImpl(), new BasketServiceImpl());
     }
 
-    public BookStoreLambda(BookStorageService bookStorageService, FoundBookListService foundBookListService, BookOrderService bookOrderService) {
-        intentHandlerStrategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, bookOrderService);
+    public BookStoreLambda(BookStorageService bookStorageService, FoundBookListService foundBookListService, BasketService basketService) {
+        intentHandlerStrategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, basketService);
     }
 
     @Override

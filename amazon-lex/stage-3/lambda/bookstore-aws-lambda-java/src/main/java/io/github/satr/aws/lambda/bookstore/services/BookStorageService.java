@@ -9,4 +9,5 @@ public interface BookStorageService {
     List<Book> getBooksWithTitleEndingWith(String text);
     List<Book> getBooksWithTitleContaining(String text);
     List<Book> getBooksWithTitle(String text);
+    Book getBookByIsbn(String isbn);
 }

@@ -2,10 +2,9 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 // Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.constants.IntentName;
-import io.github.satr.aws.lambda.bookstore.services.BookOrderService;
+import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
-import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +20,12 @@ public class IntentHandlerStrategyFactoryTest {
     @Mock
     FoundBookListService foundBookListService;
     @Mock
-    BookOrderService bookOrderService;
+    BasketService basketService;
     private IntentHandlerStrategyFactory strategyFactory;
 
     @Before
     public void setUp() throws Exception {
-        strategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, bookOrderService);
+        strategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, basketService);
     }
     @Test
     public void getByOrderBookIntent() {
@@ -38,6 +37,18 @@ public class IntentHandlerStrategyFactoryTest {
     public void getBySearchBookByTitleIntent() {
         IntentHandlerStrategy handlerStrategy = strategyFactory.getBy(IntentName.SearchBookByTitle);
         assertEquals(SearchBookByTitleIntentHandlerStrategy.class, handlerStrategy.getClass());
+    }
+
+    @Test
+    public void getByShowBasketIntent() {
+        IntentHandlerStrategy handlerStrategy = strategyFactory.getBy(IntentName.ShowBasket);
+        assertEquals(ShowBasketIntentHandlerStrategy.class, handlerStrategy.getClass());
+    }
+
+    @Test
+    public void getByAddBookToBasketIntent() {
+        IntentHandlerStrategy handlerStrategy = strategyFactory.getBy(IntentName.AddBookToBasket);
+        assertEquals(AddBookToBasketIntentHandlerStrategy.class, handlerStrategy.getClass());
     }
 
     @Test

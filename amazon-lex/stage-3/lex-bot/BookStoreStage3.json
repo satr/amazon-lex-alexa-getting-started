@@ -6,7 +6,7 @@
   },
   "resource": {
     "name": "BookStoreStageThree",
-    "version": "1",
+    "version": "3",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
@@ -72,16 +72,22 @@
       },
       {
         "name": "IntroductionIntent",
-        "version": "2",
+        "version": "4",
         "fulfillmentActivity": {
-          "type": "ReturnIntent"
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
         },
         "sampleUtterances": [
           "Help",
           "What can I do",
           "What is it",
           "What are my options",
-          "I would li"
+          "I would like to order books",
+          "Hello",
+          "Hi"
         ],
         "slots": [],
         "conclusionStatement": {
@@ -93,6 +99,28 @@
             }
           ]
         }
+      },
+      {
+        "name": "ShowFoundBookListIntent",
+        "version": "1",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "Show me the found book list",
+          "Show the found list",
+          "Show found books",
+          "Show searched books",
+          "Give me found books",
+          "Show last search result",
+          "Give last search",
+          "Give last search result"
+        ],
+        "slots": []
       },
       {
         "name": "PaymentIntent",
@@ -197,8 +225,8 @@
         ]
       },
       {
-        "name": "OrderBookIntent",
-        "version": "7",
+        "name": "ShowBasketIntent",
+        "version": "2",
         "fulfillmentActivity": {
           "codeHook": {
             "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
@@ -207,55 +235,21 @@
           "type": "CodeHook"
         },
         "sampleUtterances": [
-          "I need a book",
-          "I am looking for a book",
-          "I would like to order a book",
-          "I would like to order a book {BookTitle}",
-          "I would like to order a book {BookTitle} by {BookAuthor}",
-          "I am looking for a book of {BookAuthor}",
-          "I am looking for a book {BookTitle}",
-          "I would like to order a book of {BookAuthor}"
+          "Show the basket",
+          "What is in basket",
+          "What books I ordered",
+          "Show me the ordered",
+          "Show me the basket",
+          "Show the ordered",
+          "What did I ordered",
+          "What have I ordered",
+          "What is in my basket"
         ],
-        "slots": [
-          {
-            "sampleUtterances": [],
-            "slotType": "AMAZON.Person",
-            "obfuscationSetting": "NONE",
-            "slotConstraint": "Required",
-            "valueElicitationPrompt": {
-              "messages": [
-                {
-                  "contentType": "PlainText",
-                  "content": "Who is the author?"
-                }
-              ],
-              "maxAttempts": 2
-            },
-            "priority": 2,
-            "name": "BookAuthor"
-          },
-          {
-            "sampleUtterances": [],
-            "slotType": "AMAZON.Book",
-            "obfuscationSetting": "NONE",
-            "slotConstraint": "Required",
-            "valueElicitationPrompt": {
-              "messages": [
-                {
-                  "contentType": "PlainText",
-                  "content": "What is the title of a book?"
-                }
-              ],
-              "maxAttempts": 2
-            },
-            "priority": 1,
-            "name": "BookTitle"
-          }
-        ]
+        "slots": []
       },
       {
-        "name": "ConfirmOrderIntent",
-        "version": "3",
+        "name": "AddBookToBasketIntent",
+        "version": "1",
         "fulfillmentActivity": {
           "codeHook": {
             "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
@@ -265,10 +259,23 @@
         },
         "sampleUtterances": [
           "I will buy it",
+          "I will buy this book",
+          "I will order this book",
+          "I would order this book",
+          "I would like to order this book",
+          "I would like to order the selected book",
+          "I would like to buy it",
+          "I would like to buy this",
+          "I would like to buy this book",
+          "I would like to buy last selected book",
           "I will take it",
-          "Thank you I will take it",
-          "Thanks I will buy it",
-          "I would like to buy it"
+          "Take it please",
+          "Add it to basket",
+          "Add the book to basket",
+          "Add to basket",
+          "Add it to selected",
+          "Add this to selected",
+          "Add this book to selected"
         ],
         "slots": []
       }
