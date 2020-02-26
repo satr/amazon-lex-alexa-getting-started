@@ -1,14 +1,13 @@
-package io.github.satr.aws.lambda.bookstore.strategies;
+package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import io.github.satr.aws.lambda.bookstore.ObjectMother;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
-import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.SearchBookByTitleIntentHandlerStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

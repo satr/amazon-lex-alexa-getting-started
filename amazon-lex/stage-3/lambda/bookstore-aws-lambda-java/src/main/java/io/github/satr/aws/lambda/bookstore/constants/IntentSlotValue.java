@@ -32,7 +32,7 @@ public final class IntentSlotValue {
         public static String Twelfth = "twelfth";
         public static String Last = "last";
 
-        public static Integer getNumberInSequenceByPosition(String positionInSequence, Integer lastValue) {
+        public static Integer getNumberInSequenceByPosition(String positionInSequence, int lastValue) {
             return positionInSequence == Last ? lastValue : getPositionInSequenceToNumber().get(positionInSequence);
         }
 

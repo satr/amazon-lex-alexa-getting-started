@@ -1,6 +1,6 @@
 package io.github.satr.aws.lambda.bookstore.request;
 
-import io.github.satr.aws.lambda.bookstore.ObjectMother;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import org.junit.Test;
 

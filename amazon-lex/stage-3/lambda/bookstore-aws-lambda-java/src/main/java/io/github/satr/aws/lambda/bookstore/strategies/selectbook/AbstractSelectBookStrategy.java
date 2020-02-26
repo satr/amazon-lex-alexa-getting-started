@@ -38,7 +38,7 @@ public abstract class AbstractSelectBookStrategy implements SelectBookStrategy {
     public void process(LexRespond respond) {
         Message message = respond.getDialogAction().getMessage();
         OperationValueResult<Book> selectedBookResult = getSelectedBookResult();
-        if(selectedBookResult.failed() || selectedBookResult.getValue() == null) {
+        if(!selectedBookResult.success() || selectedBookResult.getValue() == null) {
             message.setContentFormatted("Book is not selected:\n%s\nPlease try again", selectedBookResult.getErrorsAsString("\n"));
             return;
         }

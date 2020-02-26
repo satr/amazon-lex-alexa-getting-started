@@ -13,13 +13,13 @@ public class OperationResultImpl implements OperationResult {
     }
 
     @Override
-    public boolean failed() {
-        return !success();
+    public boolean success() {
+        return errors.isEmpty();
     }
 
     @Override
-    public boolean success() {
-        return errors.isEmpty();
+    public List<String> getErrors() {
+        return errors;
     }
 
     @Override

@@ -1,8 +1,10 @@
-package io.github.satr.aws.lambda.bookstore;
+package io.github.satr.aws.lambda.bookstore.lambda;
 // Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import io.github.satr.aws.lambda.bookstore.BookStoreLambda;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.respond.DialogAction;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
@@ -35,21 +37,27 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
     @Test
     public void handleRequestWithSimpleRequest() {
         Map<String, Object> map = ObjectMother.createMapFromJson("simple-search-book-by-title-intent-request.json");
+
         Object respond = lambda.handleRequest(map, context);
+
         assertNotNull(respond);
     }
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequest() {
         Map<String, Object> map = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+
         Object respond = lambda.handleRequest(map, context);
+
         assertNotNull(respond);
     }
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() {
         Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+
         LexRespond respond = (LexRespond)lambda.handleRequest(input, context);
+
         assertNotNull(respond.getDialogAction());
         assertEquals(DialogAction.FulfillmentState.Fulfilled, respond.getDialogAction().getFulfillmentState());
         assertEquals(DialogAction.Type.Close, respond.getDialogAction().getType());

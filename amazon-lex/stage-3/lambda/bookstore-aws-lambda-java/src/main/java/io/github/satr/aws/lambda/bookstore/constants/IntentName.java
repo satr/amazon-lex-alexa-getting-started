@@ -5,4 +5,5 @@ public final class IntentName {
     public static String OrderBook = "OrderBookIntent";
     public static String SearchBookByTitle = "SearchBookByTitleIntent";
     public static String SelectBook = "SelectBookIntent";
+    public static String ShowFoundBookList = "ShowFoundBookListIntent";
 }

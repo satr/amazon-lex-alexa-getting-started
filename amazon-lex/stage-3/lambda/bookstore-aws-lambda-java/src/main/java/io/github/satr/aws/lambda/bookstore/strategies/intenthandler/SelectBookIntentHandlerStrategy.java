@@ -32,23 +32,24 @@ public class SelectBookIntentHandlerStrategy extends AbstractIntentHandlerStrate
         String positionInSequence = request.getSlot(IntentSlotName.PositionInSequence);
         String chooseFromListAction = request.getSlot(IntentSlotName.ChooseFromListAction);
 
-        LexRespond respond = getCloseFulfilledLexRespond(request, "Undefined");
+        LexRespond respond = getCloseFulfilledLexRespond(request, "Undefined message");
 
-        getSelectBookStrategyBy(itemNumber, positionInSequence, chooseFromListAction).process(respond);
+        getSelectBookStrategyBy(itemNumber, positionInSequence, chooseFromListAction)
+                .process(respond);
 
         return respond;
     }
 
     private SelectBookStrategy getSelectBookStrategyBy(String itemNumber, String positionInSequence, String chooseFromListAction) {
-        SelectBookStrategy strategy = selectBookStrategies.get(chooseFromListAction);
-        Integer itemNumberParsed = Integer.getInteger(itemNumber);
-        if(itemNumberParsed != null && itemNumberParsed > 0) {
-            strategy.selectBookByNumberInSequence(itemNumberParsed);
-            return strategy;
+        SelectBookStrategy selectBookStrategy = selectBookStrategies.get(chooseFromListAction);
+        Integer itemNumberParsed;
+        if (itemNumber != null && (itemNumberParsed = Integer.valueOf(itemNumber)) != null && itemNumberParsed > 0) {
+            selectBookStrategy.selectBookByNumberInSequence(itemNumberParsed);
+            return selectBookStrategy;
         }
         if(positionInSequence != null) {
-            strategy.selectBookByPositionInList(positionInSequence);
-            return strategy;
+            selectBookStrategy.selectBookByPositionInList(positionInSequence);
+            return selectBookStrategy;
         }
         return notSelectedBookStrategy;
     }

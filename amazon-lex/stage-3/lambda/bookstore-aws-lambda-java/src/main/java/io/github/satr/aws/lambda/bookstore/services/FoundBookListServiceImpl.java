@@ -9,44 +9,49 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FoundBookListServiceImpl implements FoundBookListService {
-    private List<Book> foundBookList = new LinkedList<>();
+    private List<Book> bookList = new LinkedList<>();
 
     @Override
     public void put(List<Book> foundBookList) {
-        this.foundBookList = foundBookList;
+        this.bookList = foundBookList;
     }
 
     @Override
     public OperationValueResult<Book> getByPositionInSequence(String positionInSequence) {
-        OperationValueResult<Book> result = validate();
-        if (result.failed())
+        OperationValueResult<Book> result = validate(bookList);
+        if (!result.success())
             return result;
-        Integer itemNumber = IntentSlotValue.PositionInSequence.getNumberInSequenceByPosition(positionInSequence, foundBookList.size());
+        Integer itemNumber = IntentSlotValue.PositionInSequence.getNumberInSequenceByPosition(positionInSequence, bookList.size());
         tryGetByNumberInSequence(result, itemNumber);
         return result;
     }
 
     @Override
     public OperationValueResult<Book> getByNumberInSequence(Integer itemNumber) {
-        OperationValueResult<Book> result = validate();
-        if (result.failed())
+        OperationValueResult<Book> result = validate(bookList);
+        if (!result.success())
             return result;
         tryGetByNumberInSequence(result, itemNumber);
         return result;
     }
 
+    @Override
+    public List<Book> getList() {
+        return bookList;
+    }
+
     private void tryGetByNumberInSequence(OperationValueResult<Book> result, Integer itemNumber) {
-        if (itemNumber == null || itemNumber <= 0 || itemNumber > foundBookList.size()) {
+        if (itemNumber == null || itemNumber <= 0 || itemNumber > bookList.size()) {
             result.addError("Cannot identify a book in the list by item number %s.", itemNumber);
             return;
         }
-        result.setValue(foundBookList.get(itemNumber - 1));
+        result.setValue(bookList.get(itemNumber - 1));
     }
 
-    private OperationValueResult<Book> validate() {
+    private OperationValueResult<Book> validate(List<Book> bookList) {
         OperationValueResult<Book> result = new OperationValueResultImpl<>();
-        if(foundBookList.isEmpty())
-            result.addError("There are no books in the found book list.");
+        if(bookList.isEmpty())
+            result.addError("Found book list is empty.");
         return result;
     }
 }

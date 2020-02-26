@@ -1,4 +1,4 @@
-package io.github.satr.aws.lambda.bookstore.strategies;
+package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 // Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.constants.IntentName;

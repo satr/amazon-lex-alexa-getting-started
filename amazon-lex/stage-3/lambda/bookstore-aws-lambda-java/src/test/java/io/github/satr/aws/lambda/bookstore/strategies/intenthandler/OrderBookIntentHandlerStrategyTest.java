@@ -1,10 +1,9 @@
-package io.github.satr.aws.lambda.bookstore.strategies;
+package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import io.github.satr.aws.lambda.bookstore.ObjectMother;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.OrderBookIntentHandlerStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ public class OrderBookIntentHandlerStrategyTest {
     }
     @Test
     public void handle() {
-        LexRequest request = ObjectMother.createLexRequestWithBookBookTitleAndAuthor("Some Book Title", "Some Author");
+        LexRequest request = ObjectMother.createLexRequestForOrderBook("Some Book Title", "Some Author");
 
         LexRespond respond = strategy.handle(request, lambdaLogger);
 

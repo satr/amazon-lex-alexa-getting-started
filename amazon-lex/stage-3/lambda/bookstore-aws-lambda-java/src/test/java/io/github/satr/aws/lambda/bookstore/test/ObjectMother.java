@@ -1,4 +1,4 @@
-package io.github.satr.aws.lambda.bookstore;
+package io.github.satr.aws.lambda.bookstore.test;
 // Copyright © 2020, github.com/satr, MIT License
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,6 +15,7 @@ import java.util.*;
 
 public final class ObjectMother {
     private static ObjectMapper jsonObjectMapper;
+    private static Random random = new Random();
 
     public static Map<String, Object> createMapFromJson(String jsonFileName){
         ClassLoader classLoader = ObjectMother.class.getClassLoader();
@@ -34,10 +35,18 @@ public final class ObjectMother {
         }
     }
 
-    public static LexRequest createLexRequestWithBookBookTitleAndAuthor(String bookTitle, String bookAuthor) {
+    public static LexRequest createLexRequestForOrderBook(String bookTitle, String bookAuthor) {
         LexRequest request = new LexRequest();
         request.getSlots().put(IntentSlotName.BookTitle, bookTitle);
         request.getSlots().put(IntentSlotName.BookAuthor, bookAuthor);
+        return request;
+    }
+
+    public static LexRequest createLexRequestForSelectBook(String chooseFromListAction, String itemNumber, String positionInSequence) {
+        LexRequest request = new LexRequest();
+        request.getSlots().put(IntentSlotName.ItemNumber, itemNumber);
+        request.getSlots().put(IntentSlotName.PositionInSequence, positionInSequence);
+        request.getSlots().put(IntentSlotName.ChooseFromListAction, chooseFromListAction);
         return request;
     }
 
@@ -56,11 +65,16 @@ public final class ObjectMother {
         return books;
     }
 
-    private static Book getRandomBook() {
+    public static Book getRandomBook() {
         Book book = new Book();
         book.setTitle(getRandomString());
         book.setAuthor(getRandomString());
+        book.setIssueYear(getRandomInt(1900, 2020));
         return book;
+    }
+
+    private static int getRandomInt(int min, int max) {
+        return min + random.nextInt(max - min);
     }
 
     public static ObjectNode getJsonObjectNode() {

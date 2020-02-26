@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
+import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
@@ -44,7 +45,7 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
             return getCloseFulfilledLexRespond(request, responseMessageBuilder);
         }
 
-        String resultMessage = buildSearchResult(foundBookList);
+        String resultMessage = BookListFormatter.shortDescriptionList(foundBookList, "Found %d books:\n", foundBookList.size());
         responseMessageBuilder.append(resultMessage);
 
         return getCloseFulfilledLexRespond(request, responseMessageBuilder);
@@ -52,15 +53,6 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
 
     private BookSearchStrategy getBookSearchStrategyBy(String wordsPosition) {
         return bookSearchStrategies.getOrDefault(wordsPosition, booksWithTitleSearchStrategy);
-    }
-
-    private String buildSearchResult(List<Book> books) {
-        StringBuilder messageBuilder = new StringBuilder(String.format("Found %d books:\n", books.size()));
-        for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            messageBuilder.append(String.format("%d. \"%s\" by %s\n", i + 1, book.getTitle(), book.getAuthor()));
-        }
-        return messageBuilder.toString();
     }
 
     private String getQueryDescription(String wordsPosition, String titleQuery) {
