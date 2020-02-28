@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.constants;
+// Copyright © 2020, github.com/satr, MIT License
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ public final class IntentSlotValue {
     public static class ChooseFromListAction {
         public static String Show = "show";
         public static String Order = "order";
+        public static String Remove = "remove";
     }
 
     public static class PositionInSequence {

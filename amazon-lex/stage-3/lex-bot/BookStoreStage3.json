@@ -6,7 +6,7 @@
   },
   "resource": {
     "name": "BookStoreStageThree",
-    "version": "4",
+    "version": "5",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
@@ -280,6 +280,80 @@
           "Add this book to selected"
         ],
         "slots": []
+      },
+      {
+        "name": "RemoveBookFromBasketIntent",
+        "version": "1",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "I do not need the book number {ItemNumber}",
+          "I do not need the book {ItemNumber}",
+          "Exclude the book {ItemNumber}",
+          "Exlode the book number {ItemNumber}",
+          "Remove the book {ItemNumber}",
+          "Remove details of the book {ItemNumber}",
+          "Please remove the book number {ItemNumber}",
+          "Please remove the {PositionInSequence} book",
+          "Please drop the {PositionInSequence} one",
+          "Delete the book number {ItemNumber}",
+          "Delete the book {ItemNumber}",
+          "Drop the book {ItemNumber}",
+          "Please delete the book number {ItemNumber}",
+          "Please delete the {PositionInSequence} book",
+          "Please remove the {PositionInSequence} one",
+          "Remove the {PositionInSequence} one",
+          "Remove the {PositionInSequence} book",
+          "Delete the {PositionInSequence} one",
+          "Delete the {PositionInSequence} book",
+          "Delete the number {ItemNumber}",
+          "Delete number {ItemNumber}",
+          "Let me remove the book number {ItemNumber}",
+          "I will remove the {PositionInSequence} book",
+          "I would like to remove number {ItemNumber}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Optional",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which book number in the list?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "ItemNumber"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "PositionInSequence",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Optional",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which book in the list?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "PositionInSequence"
+          }
+        ]
       }
     ],
     "slotTypes": [

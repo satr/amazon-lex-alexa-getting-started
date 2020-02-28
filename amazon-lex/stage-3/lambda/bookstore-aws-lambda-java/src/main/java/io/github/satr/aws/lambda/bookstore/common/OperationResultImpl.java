@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.common;
+// Copyright © 2020, github.com/satr, MIT License
 
 import java.util.LinkedList;
 import java.util.List;

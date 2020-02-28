@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.services;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.common.OperationValueResult;

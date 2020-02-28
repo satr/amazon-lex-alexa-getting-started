@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.common.OperationValueResult;
 import io.github.satr.aws.lambda.bookstore.common.OperationValueResultImpl;
@@ -6,16 +7,13 @@ import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
-import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
 
 public abstract class AbstractSelectBookStrategy implements SelectBookStrategy {
-    protected final BookStorageService bookStorageService;
     protected final FoundBookListService foundBookListService;
     private OperationValueResult<Book> selectedBookResult = new OperationValueResultImpl<>();
 
-    public AbstractSelectBookStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService) {
-        this.bookStorageService = bookStorageService;
+    public AbstractSelectBookStrategy(FoundBookListService foundBookListService) {
         this.foundBookListService = foundBookListService;
         selectedBookResult.addError("Book has not been selected");
     }
@@ -35,7 +33,7 @@ public abstract class AbstractSelectBookStrategy implements SelectBookStrategy {
     }
 
     @Override
-    public void process(LexRespond respond) {
+    public void processSelectedBook(LexRespond respond) {
         Message message = respond.getDialogAction().getMessage();
         OperationValueResult<Book> selectedBookResult = getSelectedBookResult();
         if(!selectedBookResult.success() || selectedBookResult.getValue() == null) {

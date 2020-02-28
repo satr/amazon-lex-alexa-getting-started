@@ -32,6 +32,9 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
+    public void setContent(StringBuilder builder) {
+        setContent(builder.toString());
+    }
     public void setContentFormatted(String format, Object... args) {
         setContent(String.format(format, args));
     }

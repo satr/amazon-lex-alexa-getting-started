@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.entity.formatter;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 

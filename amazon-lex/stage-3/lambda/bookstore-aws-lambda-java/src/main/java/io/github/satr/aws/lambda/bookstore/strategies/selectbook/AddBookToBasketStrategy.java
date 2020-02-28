@@ -1,18 +1,18 @@
 package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
-import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
 
 public class AddBookToBasketStrategy extends AbstractSelectBookStrategy {
     private final BasketService basketService;
 
-    public AddBookToBasketStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BasketService basketService) {
-        super(bookStorageService, foundBookListService);
+    public AddBookToBasketStrategy(FoundBookListService foundBookListService, BasketService basketService) {
+        super(foundBookListService);
         this.basketService = basketService;
     }
 

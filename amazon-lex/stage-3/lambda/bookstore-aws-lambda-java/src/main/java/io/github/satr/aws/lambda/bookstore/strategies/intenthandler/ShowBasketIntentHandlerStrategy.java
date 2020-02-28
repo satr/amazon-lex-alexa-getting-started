@@ -6,6 +6,7 @@ import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
+// Copyright © 2020, github.com/satr, MIT License
 
 import java.util.List;
 

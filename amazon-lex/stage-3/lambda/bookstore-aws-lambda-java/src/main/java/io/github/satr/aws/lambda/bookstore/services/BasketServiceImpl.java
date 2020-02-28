@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.services;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.common.OperationResult;
 import io.github.satr.aws.lambda.bookstore.common.OperationResultImpl;
@@ -17,11 +18,9 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public Book getBookByIsbn(String isbn) {
-        for (Book book : books) {
-            if (isbn != null && isbn.equals(book.getIsbn()))
-                return book;
-        }
-        return null;
+        return isbn == null || isbn.trim().isEmpty()
+                ? null
+                : books.stream().filter(book -> isbn.equals(book.getIsbn())).findFirst().orElse(null);
     }
 
     @Override
@@ -38,5 +37,15 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public void clearBasket() {
         books.clear();
+    }
+
+    @Override
+    public void remove(Book book) {
+        books.remove(book);
+    }
+
+    @Override
+    public int getBookCount() {
+        return books.size();
     }
 }

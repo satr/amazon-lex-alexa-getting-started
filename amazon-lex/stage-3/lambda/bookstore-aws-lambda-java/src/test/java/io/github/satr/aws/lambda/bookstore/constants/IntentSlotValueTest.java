@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.constants;
+// Copyright © 2020, github.com/satr, MIT License
 
 import org.junit.Test;
 

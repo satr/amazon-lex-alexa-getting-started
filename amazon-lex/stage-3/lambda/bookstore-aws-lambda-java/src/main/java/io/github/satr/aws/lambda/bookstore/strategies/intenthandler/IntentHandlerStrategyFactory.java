@@ -14,13 +14,13 @@ public class IntentHandlerStrategyFactory {
     private IntentHandlerStrategy notRecognizedIntent = new NotRecognizedIntentHandler();
 
     public IntentHandlerStrategyFactory(BookStorageService bookStorageService, FoundBookListService foundBookListService, BasketService basketService) {
-        strategies.put(IntentName.OrderBook, new OrderBookIntentHandlerStrategy());
+        strategies.put(IntentName.Introduction, new IntroductionIntentHandlerStrategy());
         strategies.put(IntentName.SearchBookByTitle, new SearchBookByTitleIntentHandlerStrategy(bookStorageService, foundBookListService));
-        strategies.put(IntentName.SelectBook, new SelectBookIntentHandlerStrategy(bookStorageService, foundBookListService, basketService));
+        strategies.put(IntentName.SelectBook, new SelectBookIntentHandlerStrategy(foundBookListService, basketService));
         strategies.put(IntentName.ShowFoundBookList, new ShowFoundBookListIntentHandlerStrategy(foundBookListService));
         strategies.put(IntentName.AddBookToBasket, new AddBookToBasketIntentHandlerStrategy(bookStorageService, basketService));
+        strategies.put(IntentName.RemoveBookFromBasket, new RemoveBookFromBasketIntentHandlerStrategy(foundBookListService, basketService));
         strategies.put(IntentName.ShowBasket, new ShowBasketIntentHandlerStrategy(basketService));
-        strategies.put(IntentName.Introduction, new IntroductionIntentHandlerStrategy());
         strategies.put(IntentName.CompleteOrder, new CompleteOrderIntentHandlerStrategy(basketService));
     }
 

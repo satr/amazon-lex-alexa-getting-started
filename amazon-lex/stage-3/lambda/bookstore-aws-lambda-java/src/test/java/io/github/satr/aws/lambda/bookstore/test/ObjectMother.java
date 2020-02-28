@@ -3,7 +3,6 @@ package io.github.satr.aws.lambda.bookstore.test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
@@ -75,9 +74,5 @@ public final class ObjectMother {
 
     private static int getRandomInt(int min, int max) {
         return min + random.nextInt(max - min);
-    }
-
-    public static ObjectNode getJsonObjectNode() {
-        return jsonObjectMapper.createObjectNode();
     }
 }

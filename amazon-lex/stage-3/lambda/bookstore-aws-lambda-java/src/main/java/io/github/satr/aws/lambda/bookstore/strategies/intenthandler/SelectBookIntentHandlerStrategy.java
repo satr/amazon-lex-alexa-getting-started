@@ -1,56 +1,34 @@
 package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
+// Copyright © 2020, github.com/satr, MIT License
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
-import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
-import io.github.satr.aws.lambda.bookstore.strategies.selectbook.NotSelectedBookStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.AddBookToBasketStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.SelectBookStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.ShowBookDetailsStrategy;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class SelectBookIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
+public class SelectBookIntentHandlerStrategy extends AbstractSelectBookIntentHandlerStrategy {
     private Map<String, SelectBookStrategy> selectBookStrategies = new HashMap<>();
-    private NotSelectedBookStrategy notSelectedBookStrategy;
 
-    public SelectBookIntentHandlerStrategy(BookStorageService bookStorageService, FoundBookListService foundBookListService, BasketService basketService) {
-        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Show, new ShowBookDetailsStrategy(bookStorageService, foundBookListService));
-        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Order, new AddBookToBasketStrategy(bookStorageService, foundBookListService, basketService));
-        notSelectedBookStrategy = new NotSelectedBookStrategy(bookStorageService, foundBookListService);
+    public SelectBookIntentHandlerStrategy(FoundBookListService foundBookListService, BasketService basketService) {
+        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Show, new ShowBookDetailsStrategy(foundBookListService));
+        selectBookStrategies.put(IntentSlotValue.ChooseFromListAction.Order, new AddBookToBasketStrategy(foundBookListService, basketService));
     }
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
-        String itemNumber = request.getSlot(IntentSlotName.ItemNumber);
-        String positionInSequence = request.getSlot(IntentSlotName.PositionInSequence);
+    protected LexRespond customHandle(LexRequest request, LexRespond respond, String itemNumber, String positionInSequence) {
         String chooseFromListAction = request.getSlot(IntentSlotName.ChooseFromListAction);
+        SelectBookStrategy selectBookStrategy = selectBookStrategies.get(chooseFromListAction);
 
-        LexRespond respond = getCloseFulfilledLexRespond(request, "Undefined message");
-
-        getSelectBookStrategyBy(itemNumber, positionInSequence, chooseFromListAction)
-                .process(respond);
+        selectBookBy(selectBookStrategy, itemNumber, positionInSequence)
+                .processSelectedBook(respond);
 
         return respond;
-    }
-
-    private SelectBookStrategy getSelectBookStrategyBy(String itemNumber, String positionInSequence, String chooseFromListAction) {
-        SelectBookStrategy selectBookStrategy = selectBookStrategies.get(chooseFromListAction);
-        Integer itemNumberParsed;
-        if (itemNumber != null && (itemNumberParsed = Integer.valueOf(itemNumber)) != null && itemNumberParsed > 0) {
-            selectBookStrategy.selectBookByNumberInSequence(itemNumberParsed);
-            return selectBookStrategy;
-        }
-        if(positionInSequence != null) {
-            selectBookStrategy.selectBookByPositionInList(positionInSequence);
-            return selectBookStrategy;
-        }
-        return notSelectedBookStrategy;
     }
 }

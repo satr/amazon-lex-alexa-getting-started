@@ -55,7 +55,9 @@ public class BookStorageServiceImpl implements BookStorageService {
 
     @Override
     public Book getBookByIsbn(String isbn) {
-        return books.stream().filter(book -> book.getIsbn().equals(isbn)).findFirst().get();
+        return isbn == null || isbn.trim().isEmpty()
+                ? null
+                : books.stream().filter(book -> isbn.equals(book.getIsbn())).findFirst().orElse(null);
     }
 
     private List<Book> searchFor(Predicate<Book> containsPredicate) {

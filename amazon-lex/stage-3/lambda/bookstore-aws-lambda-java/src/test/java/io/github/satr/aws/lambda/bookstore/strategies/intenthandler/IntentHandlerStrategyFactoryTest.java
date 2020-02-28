@@ -27,11 +27,6 @@ public class IntentHandlerStrategyFactoryTest {
     public void setUp() throws Exception {
         strategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, basketService);
     }
-    @Test
-    public void getByOrderBookIntent() {
-        IntentHandlerStrategy handlerStrategy = strategyFactory.getBy(IntentName.OrderBook);
-        assertEquals(OrderBookIntentHandlerStrategy.class, handlerStrategy.getClass());
-    }
 
     @Test
     public void getBySearchBookByTitleIntent() {
