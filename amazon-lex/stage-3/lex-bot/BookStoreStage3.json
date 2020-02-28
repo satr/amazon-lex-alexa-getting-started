@@ -6,7 +6,7 @@
   },
   "resource": {
     "name": "BookStoreStageThree",
-    "version": "3",
+    "version": "4",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
@@ -123,8 +123,8 @@
         "slots": []
       },
       {
-        "name": "PaymentIntent",
-        "version": "5",
+        "name": "CompleteOrderIntent",
+        "version": "1",
         "fulfillmentActivity": {
           "codeHook": {
             "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
@@ -133,11 +133,13 @@
           "type": "CodeHook"
         },
         "sampleUtterances": [
-          "How much is it",
-          "What is a price",
-          "How much does it cost",
-          "What is price",
-          "What's a price"
+          "Complete the order",
+          "I would like to complete the order",
+          "I will pay for it",
+          "Please complete the order",
+          "I finished with ordering",
+          "Let me take this",
+          "I will take all this"
         ],
         "slots": []
       },

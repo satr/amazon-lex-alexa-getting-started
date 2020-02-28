@@ -8,4 +8,5 @@ public interface BasketService {
     List<Book> getBooks();
     Book getBookByIsbn(String isbn);
     OperationResult add(Book book);
+    void clearBasket();
 }

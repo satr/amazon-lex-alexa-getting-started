@@ -34,4 +34,9 @@ public class BasketServiceImpl implements BasketService {
         books.add(book);
         return result;
     }
+
+    @Override
+    public void clearBasket() {
+        books.clear();
+    }
 }

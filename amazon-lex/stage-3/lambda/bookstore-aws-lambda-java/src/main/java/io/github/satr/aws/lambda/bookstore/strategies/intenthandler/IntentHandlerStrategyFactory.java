@@ -21,6 +21,7 @@ public class IntentHandlerStrategyFactory {
         strategies.put(IntentName.AddBookToBasket, new AddBookToBasketIntentHandlerStrategy(bookStorageService, basketService));
         strategies.put(IntentName.ShowBasket, new ShowBasketIntentHandlerStrategy(basketService));
         strategies.put(IntentName.Introduction, new IntroductionIntentHandlerStrategy());
+        strategies.put(IntentName.CompleteOrder, new CompleteOrderIntentHandlerStrategy(basketService));
     }
 
     public IntentHandlerStrategy getBy(String intentName) {
