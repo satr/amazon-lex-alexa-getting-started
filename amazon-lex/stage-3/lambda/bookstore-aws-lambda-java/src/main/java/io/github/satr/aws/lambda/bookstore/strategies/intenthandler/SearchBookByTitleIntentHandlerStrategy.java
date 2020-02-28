@@ -45,7 +45,7 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
             return getCloseFulfilledLexRespond(request, responseMessageBuilder);
         }
 
-        String resultMessage = BookListFormatter.shortDescriptionList(foundBookList, "Found %d books:\n", foundBookList.size());
+        String resultMessage = BookListFormatter.getShortDescriptionList(foundBookList, "Found %d books:\n", foundBookList.size());
         responseMessageBuilder.append(resultMessage);
 
         return getCloseFulfilledLexRespond(request, responseMessageBuilder);

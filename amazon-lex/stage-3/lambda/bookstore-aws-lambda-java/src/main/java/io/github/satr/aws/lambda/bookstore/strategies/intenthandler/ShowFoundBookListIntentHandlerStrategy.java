@@ -20,7 +20,7 @@ public class ShowFoundBookListIntentHandlerStrategy extends AbstractIntentHandle
         List<Book> bookList = foundBookListService.getList();
         String message = bookList.isEmpty()
                 ? "Last search result is empty."
-                : BookListFormatter.shortDescriptionList(bookList, "Last search result:\n");
+                : BookListFormatter.getShortDescriptionList(bookList, "Last search result:\n");
         return getCloseFulfilledLexRespond(request, message);
     }
 }

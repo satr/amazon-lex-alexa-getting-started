@@ -19,9 +19,11 @@ public class ShowBasketIntentHandlerStrategy extends AbstractIntentHandlerStrate
     @Override
     public LexRespond handle(LexRequest request, LambdaLogger logger) {
         List<Book> booksInBasket = basketService.getBooks();
-        return booksInBasket.isEmpty()
-                ? getCloseFulfilledLexRespond(request, "Basket is empty.")
-                : getCloseFulfilledLexRespond(request, BookListFormatter.shortDescriptionList(booksInBasket,
-                                   "Basket contains %d books:\n", booksInBasket.size()));
+        if (booksInBasket.isEmpty())
+            return getCloseFulfilledLexRespond(request, "Basket is empty.");
+        StringBuilder builder = new StringBuilder(BookListFormatter.getShortDescriptionListWithPrices(booksInBasket,
+                "Basket contains %d books:\n", booksInBasket.size()));
+        builder.append(String.format("Total: %.2f", booksInBasket.stream().map(Book::getPrice).reduce(Double::sum).get()));
+        return getCloseFulfilledLexRespond(request, builder);
     }
 }

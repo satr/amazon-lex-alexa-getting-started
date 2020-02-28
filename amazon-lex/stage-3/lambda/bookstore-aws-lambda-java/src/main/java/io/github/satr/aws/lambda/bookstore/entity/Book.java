@@ -7,6 +7,7 @@ public class Book {
     private String title;
     private String author;
     private int issueYear;
+    private double price = 0.0;
 
     public Book() {
         this.isbn = String.valueOf(Math.abs(UUID.randomUUID().toString().hashCode()));//fake ISBN
@@ -42,5 +43,13 @@ public class Book {
 
     public int getIssueYear() {
         return issueYear;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

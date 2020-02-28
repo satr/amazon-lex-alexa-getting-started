@@ -33,7 +33,9 @@ public final class IntentSlotValue {
         public static String Last = "last";
 
         public static Integer getNumberInSequenceByPosition(String positionInSequence, int lastValue) {
-            return positionInSequence == Last ? lastValue : getPositionInSequenceToNumber().get(positionInSequence);
+            if (positionInSequence == null)
+                return null;
+            return Integer.valueOf(positionInSequence.equals(Last) ? lastValue : getPositionInSequenceToNumber().get(positionInSequence));
         }
 
         private static synchronized Map<String, Integer> getPositionInSequenceToNumber() {

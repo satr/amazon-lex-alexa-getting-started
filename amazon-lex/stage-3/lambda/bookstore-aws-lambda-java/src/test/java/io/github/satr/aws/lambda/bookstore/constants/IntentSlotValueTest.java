@@ -2,8 +2,7 @@ package io.github.satr.aws.lambda.bookstore.constants;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class IntentSlotValueTest {
     @Test
@@ -32,5 +31,11 @@ public class IntentSlotValueTest {
         Integer number = IntentSlotValue.PositionInSequence.getNumberInSequenceByPosition(IntentSlotValue.PositionInSequence.Last, 77);
         assertNotNull(number);
         assertEquals(77, (int)number);
+    }
+
+    @Test
+    public void getWithNull() {
+        Integer number = IntentSlotValue.PositionInSequence.getNumberInSequenceByPosition(null, 77);
+        assertNull(number);
     }
 }
