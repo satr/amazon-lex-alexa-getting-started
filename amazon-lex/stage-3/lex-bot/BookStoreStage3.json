@@ -12,11 +12,7 @@
         "name": "SearchBookByTitleIntent",
         "version": "9",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Do you have a book which {WordsPosition}  with {BookTitle}",
@@ -74,11 +70,7 @@
         "name": "IntroductionIntent",
         "version": "4",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Help",
@@ -104,11 +96,7 @@
         "name": "ShowFoundBookListIntent",
         "version": "1",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Show me the found book list",
@@ -126,11 +114,7 @@
         "name": "CompleteOrderIntent",
         "version": "1",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Complete the order",
@@ -147,11 +131,7 @@
         "name": "SelectBookIntent",
         "version": "1",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "{ChooseFromListAction} the book number {ItemNumber}",
@@ -230,11 +210,7 @@
         "name": "ShowBasketIntent",
         "version": "2",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Show the basket",
@@ -253,11 +229,7 @@
         "name": "AddBookToBasketIntent",
         "version": "1",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "I will buy it",
@@ -285,11 +257,7 @@
         "name": "RemoveBookFromBasketIntent",
         "version": "1",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage3",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "I do not need the book number {ItemNumber}",

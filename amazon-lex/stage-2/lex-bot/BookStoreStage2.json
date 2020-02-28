@@ -12,11 +12,7 @@
         "name": "SearchBookByTitleIntent",
         "version": "6",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage2",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "Do you have a book which {WordsPosition}  with {BookTitle}",
@@ -96,11 +92,7 @@
         "name": "PaymentIntent",
         "version": "4",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJava",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "How much is it",
@@ -115,11 +107,7 @@
         "name": "OrderBookIntent",
         "version": "6",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJavaStage2",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "I need a book",
@@ -172,11 +160,7 @@
         "name": "ConfirmOrderIntent",
         "version": "2",
         "fulfillmentActivity": {
-          "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:653446132031:function:BookStoreLambdaJava",
-            "messageVersion": "1.0"
-          },
-          "type": "CodeHook"
+          "type": "ReturnIntent"
         },
         "sampleUtterances": [
           "I will buy it",
