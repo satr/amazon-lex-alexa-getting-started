@@ -23,9 +23,9 @@ public class BookStorageServiceImplTest {
     public void getBookByIsbn() {
         Book bookInStorage = service.getBooksWithTitleStartingWith("monday").get(0);
 
-        Book foundBook = service.getBookByIsbn(bookInStorage.getIsbn());
+        Book book = service.getBookByIsbn(bookInStorage.getIsbn());
 
-        assertNotNull(foundBook);
-        assertEquals(bookInStorage, foundBook);
+        assertNotNull(book);
+        assertEquals(bookInStorage, book);
     }
 }

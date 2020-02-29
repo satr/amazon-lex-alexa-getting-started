@@ -9,7 +9,7 @@ import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class SelectBookIntentHandlerStrategyTest {
     @Mock
     BookStorageService bookStorageService;
     @Mock
-    FoundBookListService foundBookListService;
+    SearchBookResultService searchBookResultService;
     @Mock
     BasketService bookOrderService;
     @Mock
@@ -40,7 +40,7 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Before
     public void setUp() throws Exception {
-        strategy = new SelectBookIntentHandlerStrategy(foundBookListService, bookOrderService);
+        strategy = new SelectBookIntentHandlerStrategy(searchBookResultService, bookOrderService);
         selectedBook = ObjectMother.getRandomBook();
         when(selectedBookResult.getValue()).thenReturn(selectedBook);
         when(selectedBookResult.success()).thenReturn(true);
@@ -50,37 +50,37 @@ public class SelectBookIntentHandlerStrategyTest {
     @Test
     public void handleFindShowBookWithNumber() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
-        when(foundBookListService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
 
-        verify(foundBookListService, times(1)).getByNumberInSequence(1);
+        verify(searchBookResultService, times(1)).getByNumberInSequence(1);
     }
 
     @Test
     public void handleFindShowBookWithPosition() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
-        when(foundBookListService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
 
-        verify(foundBookListService, times(1)).getByPositionInSequence("second");
+        verify(searchBookResultService, times(1)).getByPositionInSequence("second");
     }
 
     @Test
     public void handleFindShowBookWithPositionLast() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Last);
-        when(foundBookListService.getByPositionInSequence("last")).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByPositionInSequence("last")).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
 
-        verify(foundBookListService, times(1)).getByPositionInSequence("last");
+        verify(searchBookResultService, times(1)).getByPositionInSequence("last");
     }
 
     @Test
     public void handleCannotFindBookWithNumberReturnsError() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
-        when(foundBookListService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
         when(selectedBookResult.success()).thenReturn(false);
         when(selectedBookResult.getErrorsAsString(any(String.class))).thenReturn("Some-Error");
 
@@ -92,7 +92,7 @@ public class SelectBookIntentHandlerStrategyTest {
     @Test
     public void handleCannotFindBookWithPositionReturnsError() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
-        when(foundBookListService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
         when(selectedBookResult.success()).thenReturn(false);
         when(selectedBookResult.getErrorsAsString(any(String.class))).thenReturn("Some-Error");
 
@@ -104,7 +104,7 @@ public class SelectBookIntentHandlerStrategyTest {
     @Test
     public void handleCanFindBookWithNumberReturnsBookDescription() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
-        when(foundBookListService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
 
         LexRespond respond = strategy.handle(request, logger);
 
@@ -118,7 +118,7 @@ public class SelectBookIntentHandlerStrategyTest {
     @Test
     public void handleCanFindBookWithPositionReturnsBookDescription() {
         LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
-        when(foundBookListService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
+        when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
 
         LexRespond respond = strategy.handle(request, logger);
 

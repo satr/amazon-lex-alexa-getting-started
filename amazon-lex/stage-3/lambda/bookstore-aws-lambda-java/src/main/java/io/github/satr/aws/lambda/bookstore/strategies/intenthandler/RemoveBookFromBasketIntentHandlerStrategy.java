@@ -4,15 +4,15 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.RemoveBookFromBasketStrategy;
 
 public class RemoveBookFromBasketIntentHandlerStrategy extends AbstractSelectBookIntentHandlerStrategy {
 
     private final RemoveBookFromBasketStrategy removeBookFromBasketStrategy;
 
-    public RemoveBookFromBasketIntentHandlerStrategy(FoundBookListService foundBookListService, BasketService basketService) {
-        removeBookFromBasketStrategy = new RemoveBookFromBasketStrategy(foundBookListService, basketService);
+    public RemoveBookFromBasketIntentHandlerStrategy(SearchBookResultService searchBookResultService, BasketService basketService) {
+        removeBookFromBasketStrategy = new RemoveBookFromBasketStrategy(searchBookResultService, basketService);
     }
 
     @Override

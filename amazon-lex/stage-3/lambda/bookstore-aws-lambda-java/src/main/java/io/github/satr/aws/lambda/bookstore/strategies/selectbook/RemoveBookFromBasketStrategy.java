@@ -6,13 +6,13 @@ import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 
 public class RemoveBookFromBasketStrategy extends AbstractSelectBookStrategy {
     private final BasketService basketService;
 
-    public RemoveBookFromBasketStrategy(FoundBookListService foundBookListService, BasketService basketService) {
-        super(foundBookListService);
+    public RemoveBookFromBasketStrategy(SearchBookResultService searchBookResultService, BasketService basketService) {
+        super(searchBookResultService);
         this.basketService = basketService;
     }
 

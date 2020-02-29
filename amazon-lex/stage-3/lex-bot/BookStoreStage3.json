@@ -6,7 +6,7 @@
   },
   "resource": {
     "name": "BookStoreStageThree",
-    "version": "5",
+    "version": "7",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
@@ -67,6 +67,26 @@
         ]
       },
       {
+        "name": "ShowBookSearchResultIntent",
+        "version": "1",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Show me the found book list",
+          "Show the found list",
+          "Show found books",
+          "Show searched books",
+          "Give me found books",
+          "Show last search result",
+          "Show me the search result",
+          "Give last search",
+          "Give the last search",
+          "Give last search result"
+        ],
+        "slots": []
+      },
+      {
         "name": "IntroductionIntent",
         "version": "4",
         "fulfillmentActivity": {
@@ -93,24 +113,6 @@
         }
       },
       {
-        "name": "ShowFoundBookListIntent",
-        "version": "1",
-        "fulfillmentActivity": {
-          "type": "ReturnIntent"
-        },
-        "sampleUtterances": [
-          "Show me the found book list",
-          "Show the found list",
-          "Show found books",
-          "Show searched books",
-          "Give me found books",
-          "Show last search result",
-          "Give last search",
-          "Give last search result"
-        ],
-        "slots": []
-      },
-      {
         "name": "CompleteOrderIntent",
         "version": "1",
         "fulfillmentActivity": {
@@ -129,7 +131,7 @@
       },
       {
         "name": "SelectBookIntent",
-        "version": "1",
+        "version": "3",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -148,7 +150,9 @@
           "I will {ChooseFromListAction} number {ItemNumber}",
           "Let me {ChooseFromListAction} the book number {ItemNumber}",
           "I will {ChooseFromListAction} the {PositionInSequence} book",
-          "I would like to {ChooseFromListAction} number {ItemNumber}"
+          "I would like to {ChooseFromListAction} number {ItemNumber}",
+          "{ChooseFromListAction}  {PositionInSequence} book",
+          "{ChooseFromListAction} {PositionInSequence}"
         ],
         "slots": [
           {

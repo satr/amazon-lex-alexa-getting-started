@@ -9,12 +9,12 @@ import io.github.satr.aws.lambda.bookstore.entity.Book;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FoundBookListServiceImpl implements FoundBookListService {
+public class SearchBookResultServiceImpl implements SearchBookResultService {
     private List<Book> bookList = new LinkedList<>();
 
     @Override
-    public void put(List<Book> foundBookList) {
-        this.bookList = foundBookList;
+    public void put(List<Book> searchBookResultList) {
+        this.bookList = searchBookResultList;
     }
 
     @Override
@@ -42,8 +42,14 @@ public class FoundBookListServiceImpl implements FoundBookListService {
     }
 
     private void tryGetByNumberInSequence(OperationValueResult<Book> result, Integer itemNumber) {
-        if (itemNumber == null || itemNumber <= 0 || itemNumber > bookList.size()) {
-            result.addError("Cannot identify a book in the list by item number %s.", itemNumber);
+        int resultCount = bookList.size();
+        if (itemNumber == null || itemNumber <= 0) {
+            result.addError("Cannot identify a book in the list by item number %s. Please try again.", itemNumber);
+            return;
+        }
+        if(resultCount < itemNumber)
+        {
+            result.addError("Book search result contains only %d books. Please try again.", resultCount);
             return;
         }
         result.setValue(bookList.get(itemNumber - 1));
@@ -52,7 +58,7 @@ public class FoundBookListServiceImpl implements FoundBookListService {
     private OperationValueResult<Book> validate(List<Book> bookList) {
         OperationValueResult<Book> result = new OperationValueResultImpl<>();
         if(bookList.isEmpty())
-            result.addError("Found book list is empty.");
+            result.addError("Book search result is empty.");
         return result;
     }
 }

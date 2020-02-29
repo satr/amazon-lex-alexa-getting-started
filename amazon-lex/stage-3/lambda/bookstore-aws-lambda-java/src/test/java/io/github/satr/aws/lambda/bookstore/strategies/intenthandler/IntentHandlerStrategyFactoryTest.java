@@ -4,7 +4,7 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 import io.github.satr.aws.lambda.bookstore.constants.IntentName;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +18,14 @@ public class IntentHandlerStrategyFactoryTest {
     @Mock
     BookStorageService bookStorageService;
     @Mock
-    FoundBookListService foundBookListService;
+    SearchBookResultService searchBookResultService;
     @Mock
     BasketService basketService;
     private IntentHandlerStrategyFactory strategyFactory;
 
     @Before
     public void setUp() throws Exception {
-        strategyFactory = new IntentHandlerStrategyFactory(bookStorageService, foundBookListService, basketService);
+        strategyFactory = new IntentHandlerStrategyFactory(bookStorageService, searchBookResultService, basketService);
     }
 
     @Test

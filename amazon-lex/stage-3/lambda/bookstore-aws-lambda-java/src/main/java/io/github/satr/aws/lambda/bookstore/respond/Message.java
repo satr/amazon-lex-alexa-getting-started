@@ -7,6 +7,9 @@ public class Message {
 
     public class ContentType{
         public static final String PlainText = "PlainText";
+        public static final String SSML = "SSML";
+        public static final String CustomPayload = "CustomPayload";
+        public static final String Composite = "Composite";
     }
 
     public Message(String contentType, String content) {

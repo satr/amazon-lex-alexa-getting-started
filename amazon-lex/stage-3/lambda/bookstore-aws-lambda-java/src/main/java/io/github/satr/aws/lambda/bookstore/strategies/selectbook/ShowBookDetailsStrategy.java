@@ -4,11 +4,11 @@ package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 
 public class ShowBookDetailsStrategy extends AbstractSelectBookStrategy {
-    public ShowBookDetailsStrategy(FoundBookListService foundBookListService) {
-        super(foundBookListService);
+    public ShowBookDetailsStrategy(SearchBookResultService searchBookResultService) {
+        super(searchBookResultService);
     }
 
     @Override

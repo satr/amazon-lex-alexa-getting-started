@@ -17,15 +17,27 @@ public final class BookListFormatter {
         return getShortDescriptionList(false, books, headingLineFormat, args);
     }
 
+    public static String amountOfBooks(int amount) {
+        return amount == 1 ? "one book" : String.format("%d books", amount);
+    }
+
     private static String getShortDescriptionList(boolean withPrices, List<Book> books, String headingLineFormat, Object... args) {
         StringBuilder messageBuilder = new StringBuilder(String.format(headingLineFormat, args));
-        for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            messageBuilder.append(String.format("%d. \"%s\" by %s", i + 1, book.getTitle(), book.getAuthor()));
-            if(withPrices)
-                messageBuilder.append(String.format("; Price: %.2f", book.getPrice()));
-            messageBuilder.append("\n");
+        int bookCount = books.size();
+        boolean showBookNumber = bookCount > 1;
+        for (int i = 0; i < bookCount; i++) {
+            int bookNumber = i + 1;
+            addBookDescriptionToList(messageBuilder, books.get(i), showBookNumber, bookNumber, withPrices);
         }
         return messageBuilder.toString();
+    }
+
+    private static void addBookDescriptionToList(StringBuilder messageBuilder, Book book, boolean showBookNumber, int bookNumber, boolean withPrices) {
+        if (showBookNumber)
+            messageBuilder.append(String.format("%d. ", bookNumber));
+        messageBuilder.append(String.format("\"%s\" by %s", book.getTitle(), book.getAuthor()));
+        if(withPrices)
+            messageBuilder.append(String.format("; Price: %.2f", book.getPrice()));
+        messageBuilder.append("\n");
     }
 }

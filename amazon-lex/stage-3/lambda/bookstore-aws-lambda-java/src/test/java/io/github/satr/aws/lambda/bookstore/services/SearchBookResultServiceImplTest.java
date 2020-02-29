@@ -12,13 +12,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class FoundBookListServiceImplTest {
+public class SearchBookResultServiceImplTest {
 
-    private FoundBookListServiceImpl service;
+    private SearchBookResultServiceImpl service;
 
     @Before
     public void setUp() throws Exception {
-        service = new FoundBookListServiceImpl();
+        service = new SearchBookResultServiceImpl();
     }
 
     @Test
@@ -54,7 +54,7 @@ public class FoundBookListServiceImplTest {
 
         assertFalse(result.success());
         assertNull(result.getValue());
-        assertEquals("Cannot identify a book in the list by item number 7.", result.getErrorsAsString("\n"));
+        assertEquals("Book search result contains only 3 books. Please try again.", result.getErrorsAsString("\n"));
     }
 
     @Test

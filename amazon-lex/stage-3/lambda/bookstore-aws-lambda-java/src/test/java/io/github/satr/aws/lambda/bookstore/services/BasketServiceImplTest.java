@@ -22,18 +22,18 @@ public class BasketServiceImplTest {
         Book bookInBasket = ObjectMother.getRandomBook();
         service.add(bookInBasket);
 
-        Book foundBook = service.getBookByIsbn(bookInBasket.getIsbn());
+        Book book = service.getBookByIsbn(bookInBasket.getIsbn());
 
-        assertNotNull(foundBook);
-        assertEquals(bookInBasket, foundBook);
+        assertNotNull(book);
+        assertEquals(bookInBasket, book);
     }
 
     @Test
     public void getNotExistingBookByIsbn() {
         service.add(ObjectMother.getRandomBook());
 
-        Book foundBook = service.getBookByIsbn(ObjectMother.getRandomString());
+        Book book = service.getBookByIsbn(ObjectMother.getRandomString());
 
-        assertNull(foundBook);
+        assertNull(book);
     }
 }

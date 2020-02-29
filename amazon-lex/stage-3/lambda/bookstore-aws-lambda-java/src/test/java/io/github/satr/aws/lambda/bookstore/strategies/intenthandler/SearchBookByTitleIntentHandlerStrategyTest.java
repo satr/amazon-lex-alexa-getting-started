@@ -8,7 +8,7 @@ import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,14 +28,14 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
     @Mock
     BookStorageService bookStorageService;
     @Mock
-    FoundBookListService foundBookListService;
+    SearchBookResultService searchBookResultService;
     private LexRequest request;
     private SearchBookByTitleIntentHandlerStrategy strategy;
 
     @Before
     public void setUp() throws Exception {
         request = ObjectMother.createLexRequestFromJson("simple-search-book-by-title-intent-request.json");
-        strategy = new SearchBookByTitleIntentHandlerStrategy(bookStorageService, foundBookListService);
+        strategy = new SearchBookByTitleIntentHandlerStrategy(bookStorageService, searchBookResultService);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
     @Test
     public void searchBookWhenBooksFoundReturnsBooksList() {
         String titleQuery = ObjectMother.getRandomString();
-        List<Book> foundBooks = setupSearchForBook(titleQuery, null, 3);
+        List<Book> bookSearchResult = setupSearchForBook(titleQuery, null, 3);
 
         LexRespond respond = strategy.handle(request, lambdaLogger);
 
@@ -103,19 +103,19 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
         String[] respondMessageLines = respondMessage.split("\n");
         assertEquals(String.format("Searched books by title: \"%s\"", titleQuery), respondMessageLines[0]);
         assertEquals("Found 3 books:", respondMessageLines[1]);
-        assertEquals(getFoundBookItemDescription(foundBooks, 0), respondMessageLines[2]);
-        assertEquals(getFoundBookItemDescription(foundBooks, 1), respondMessageLines[3]);
-        assertEquals(getFoundBookItemDescription(foundBooks, 2), respondMessageLines[4]);
+        assertEquals(getBookSearchResultItemDescription(bookSearchResult, 0), respondMessageLines[2]);
+        assertEquals(getBookSearchResultItemDescription(bookSearchResult, 1), respondMessageLines[3]);
+        assertEquals(getBookSearchResultItemDescription(bookSearchResult, 2), respondMessageLines[4]);
     }
 
-    private String getFoundBookItemDescription(List<Book> foundBooks, int itemIndex) {
-        return String.format("%d. \"%s\" by %s", itemIndex + 1, foundBooks.get(itemIndex).getTitle(), foundBooks.get(itemIndex).getAuthor());
+    private String getBookSearchResultItemDescription(List<Book> books, int itemIndex) {
+        return String.format("%d. \"%s\" by %s", itemIndex + 1, books.get(itemIndex).getTitle(), books.get(itemIndex).getAuthor());
     }
 
-    private List<Book> setupSearchForBook(String titleQuery, Object wordsPosition, int foundBookAmount) {
+    private List<Book> setupSearchForBook(String titleQuery, Object wordsPosition, int bookSearchResultCount) {
         request.getSlots().put(IntentSlotName.BookTitle, titleQuery);
         request.getSlots().put(IntentSlotName.WordsPosition, wordsPosition);
-        List<Book> bookList = ObjectMother.getRandomBookList(foundBookAmount);
+        List<Book> bookList = ObjectMother.getRandomBookList(bookSearchResultCount);
         when(bookStorageService.getBooksWithTitle(titleQuery)).thenReturn(bookList);
         when(bookStorageService.getBooksWithTitleStartingWith(titleQuery)).thenReturn(bookList);
         when(bookStorageService.getBooksWithTitleEndingWith(titleQuery)).thenReturn(bookList);

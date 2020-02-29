@@ -6,19 +6,19 @@ import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.services.FoundBookListService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import java.util.List;
 
-public class ShowFoundBookListIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
-    private final FoundBookListService foundBookListService;
+public class ShowSearchBookResultIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
+    private final SearchBookResultService searchBookResultService;
 
-    public ShowFoundBookListIntentHandlerStrategy(FoundBookListService foundBookListService) {
-        this.foundBookListService = foundBookListService;
+    public ShowSearchBookResultIntentHandlerStrategy(SearchBookResultService searchBookResultService) {
+        this.searchBookResultService = searchBookResultService;
     }
 
     @Override
     public LexRespond handle(LexRequest request, LambdaLogger logger) {
-        List<Book> bookList = foundBookListService.getList();
+        List<Book> bookList = searchBookResultService.getList();
         String message = bookList.isEmpty()
                 ? "Last search result is empty."
                 : BookListFormatter.getShortDescriptionList(bookList, "Last search result:\n");

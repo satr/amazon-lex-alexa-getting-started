@@ -25,7 +25,7 @@ public class CompleteOrderIntentHandlerStrategy extends AbstractIntentHandlerStr
         //TODO - perform order completion
 
         StringBuilder builder = new StringBuilder(BookListFormatter.getShortDescriptionListWithPrices(booksInBasket,
-                "Thank you for your order. You have bought %d books:\n", booksInBasket.size()));
+                "Thank you for your order. You have bought %s:\n", BookListFormatter.amountOfBooks(booksInBasket.size())));
         builder.append(String.format("Total: %.2f", booksInBasket.stream().map(Book::getPrice).reduce(Double::sum).get()));
 
         basketService.clearBasket();

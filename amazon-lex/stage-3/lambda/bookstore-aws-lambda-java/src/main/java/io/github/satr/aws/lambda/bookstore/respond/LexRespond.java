@@ -42,4 +42,8 @@ public class LexRespond {
         setSessionAttributes(request.getSessionAttributes());
 //        setSessionId(request.getSessionIdOrCreateIfEmpty());
     }
+
+    public void setSessionAttribute(String key, Object value) {
+        getSessionAttributes().put(key, value);
+    }
 }

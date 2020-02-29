@@ -23,8 +23,9 @@ public class AddBookToBasketIntentHandlerStrategy extends AbstractIntentHandlerS
     @Override
     public LexRespond handle(LexRequest request, LambdaLogger logger) {
         String selectedBookIsbn = request.getSessionAttribute(SessionAttributeKey.SelectedBookIsbn);
-        if(selectedBookIsbn == null)
+        if(selectedBookIsbn == null) {
             return getCloseFulfilledLexRespond(request, "Please select a book.");
+        }
         Book selectedBook = bookStorageService.getBookByIsbn(selectedBookIsbn);
         if (selectedBook == null)
             return getCloseFulfilledLexRespond(request, "Book not found by ISBN:%s", selectedBookIsbn);

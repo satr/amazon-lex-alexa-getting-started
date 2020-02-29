@@ -1,10 +1,13 @@
 package io.github.satr.aws.lambda.bookstore.respond;
 // Copyright © 2020, github.com/satr, MIT License
 
+import io.github.satr.aws.lambda.bookstore.respond.responsecard.ResponseCard;
+
 public class DialogAction {
     private String type;
     private String fulfillmentState;
     private Message message;
+    private ResponseCard responseCard;
 
     public final class Type {
         public static final String PlainText = "PlainText";
@@ -49,5 +52,13 @@ public class DialogAction {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    public void setResponseCard(ResponseCard responseCard) {
+        this.responseCard = responseCard;
+    }
+
+    public ResponseCard getResponseCard() {
+        return responseCard;
     }
 }

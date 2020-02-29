@@ -20,6 +20,7 @@ public final class IntentSlotValue {
     public static class PositionInSequence {
         private static Map<String, Integer> positionInSequenceToNumber;
 
+        public static String This = "this";
         public static String First = "first";
         public static String Second = "second";
         public static String Third = "third";
@@ -45,6 +46,7 @@ public final class IntentSlotValue {
                 return positionInSequenceToNumber;
 
             return positionInSequenceToNumber = new HashMap<String, Integer>(){{
+                put(IntentSlotValue.PositionInSequence.This, 1);
                 put(IntentSlotValue.PositionInSequence.First, 1);
                 put(IntentSlotValue.PositionInSequence.Second, 2);
                 put(IntentSlotValue.PositionInSequence.Third, 3);
