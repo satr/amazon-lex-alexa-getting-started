@@ -27,3 +27,6 @@ amazon-lex/stage-1/lambda/bookstore-aws-lambda-java/build
 amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/.gradle
 amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/.idea
 amazon-lex/stage-2/lambda/bookstore-aws-lambda-java/build
+amazon-lex/stage-3/lambda/bookstore-aws-lambda-java/.gradle
+amazon-lex/stage-3/lambda/bookstore-aws-lambda-java/.idea
+amazon-lex/stage-3/lambda/bookstore-aws-lambda-java/build
