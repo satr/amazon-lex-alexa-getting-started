@@ -1,7 +1,7 @@
 package io.github.satr.aws.lambda.bookstore.services;
 
 import io.github.satr.aws.lambda.bookstore.repositories.CustomerBooksRepository;
-import io.github.satr.aws.lambda.bookstore.repositories.CustomerBooksRepositoryImpl;
+import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactory;
 
 public class ServiceFactoryImpl implements ServiceFactory {
 
@@ -9,9 +9,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
     private final BasketService basketService;
     private BookStorageService bookStorageService;
 
-    public ServiceFactoryImpl() {
+    public ServiceFactoryImpl(DatabaseRepositoryFactory databaseRepositoryFactory) {
         bookStorageService = new BookStorageServiceImpl();
-        CustomerBooksRepository customerBooksRepository = new CustomerBooksRepositoryImpl();
+        CustomerBooksRepository customerBooksRepository = databaseRepositoryFactory.getCustomerBooksRepository();
         searchBookResultService = new SearchBookResultServiceImpl(customerBooksRepository);
         basketService = new BasketServiceImpl(customerBooksRepository);
     }

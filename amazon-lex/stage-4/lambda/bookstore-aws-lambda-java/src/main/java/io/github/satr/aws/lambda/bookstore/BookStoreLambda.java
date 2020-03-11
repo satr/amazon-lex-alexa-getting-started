@@ -4,6 +4,7 @@ package io.github.satr.aws.lambda.bookstore;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactoryImpl;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
 import io.github.satr.aws.lambda.bookstore.services.*;
@@ -18,7 +19,7 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     private IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
     public BookStoreLambda() {
-        this(new ServiceFactoryImpl());
+        this(new ServiceFactoryImpl(new DatabaseRepositoryFactoryImpl()));
     }
 
     public BookStoreLambda(ServiceFactory serviceFactory) {

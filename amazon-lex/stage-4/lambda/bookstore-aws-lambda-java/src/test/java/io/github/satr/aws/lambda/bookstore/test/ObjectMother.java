@@ -1,10 +1,14 @@
 package io.github.satr.aws.lambda.bookstore.test;
 // Copyright © 2020, github.com/satr, MIT License
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
+import com.amazonaws.services.dynamodbv2.local.shared.access.AmazonDynamoDBLocal;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
+import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BasketItem;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
 
@@ -65,14 +69,65 @@ public final class ObjectMother {
     }
 
     public static Book getRandomBook() {
-        Book book = new Book();
+        return getRandomlyPopulatedBook(new Book());
+    }
+
+    public static List<BasketItem> getRandomBasketItemList(int amount) {
+        LinkedList<BasketItem> books = new LinkedList<>();
+        for (int i = 0; i < amount; i++)
+            books.add(getRandomBasketItem());
+        return books;
+    }
+
+    public static BasketItem getRandomBasketItem() {
+        return getRandomlyPopulatedBasketItem(new BasketItem());
+    }
+
+    public static Book getRandomBook(Class cls) {
+        try {
+            return getRandomlyPopulatedBook((Book) cls.getDeclaredConstructor().newInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Book getRandomlyPopulatedBook(Book book) {
         book.setTitle(getRandomString());
         book.setAuthor(getRandomString());
         book.setIssueYear(getRandomInt(1900, 2020));
         return book;
     }
 
-    private static int getRandomInt(int min, int max) {
+    private static BasketItem getRandomlyPopulatedBasketItem(BasketItem book) {
+        book.setTitle(getRandomString());
+        book.setAuthor(getRandomString());
+        book.setIssueYear(getRandomInt(1900, 2020));
+        book.setPrice(getRandomFloat(1.5f, 50.9f));
+        return book;
+    }
+
+    public static int getRandomInt(int min, int max) {
         return min + random.nextInt(max - min);
+    }
+
+    public static float getRandomFloat(float min, float max) {
+        int minFloat = (int)(min * 100);
+        int maxFloat = (int)(max * 100);
+        return (float)(minFloat + random.nextInt(maxFloat - minFloat))/100;
+    }
+
+    public static AmazonDynamoDB createInMemoryDb() {
+        AmazonDynamoDB dynamodb = null;
+        try {
+            // Create an in-memory and in-process instance of DynamoDB Local
+            AmazonDynamoDBLocal amazonDynamoDBLocal = DynamoDBEmbedded.create();
+            dynamodb = amazonDynamoDBLocal.amazonDynamoDB();
+            return dynamodb;
+        } catch (Exception e){
+            if(dynamodb != null)
+                dynamodb.shutdown();// Shutdown the thread pools in DynamoDB Local / Embedded
+        }
+        return dynamodb;
     }
 }
