@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.repositories.database.tableentity;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;

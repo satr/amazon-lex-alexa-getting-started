@@ -26,7 +26,7 @@ public abstract class AbstractCustomerBooksRepositoryImplTest {
 
     @Before
     public void setUp() throws Exception {
-        repository = new CustomerBooksRepositoryImpl(dynamoDbClient, dbMapper);
+        repository = new CustomerBooksRepositoryImpl(dbMapper);
         customSetUp();
     }
 

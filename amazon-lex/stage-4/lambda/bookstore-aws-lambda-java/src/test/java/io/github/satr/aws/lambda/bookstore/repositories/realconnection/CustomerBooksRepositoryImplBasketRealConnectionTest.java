@@ -13,11 +13,27 @@ import static org.junit.Assert.*;
 public class CustomerBooksRepositoryImplBasketRealConnectionTest extends AbstractCustomerBooksRepositoryImplRealConnectionTest {
     @Test
     public void clearBasket() {
+        List<BasketItem> repBooks = ObjectMother.getRandomBasketItemList(3);
+        for (BasketItem book: repBooks)
+            repository.addToBasket(book);
 
+        repository.clearBasket();
+
+        assertEquals(0, repository.getBasketSize());
     }
 
     @Test
     public void removeFromBasket() {
+        List<BasketItem> repBooks = ObjectMother.getRandomBasketItemList(3);
+        for (BasketItem book: repBooks)
+            repository.addToBasket(book);
+
+        repository.removeFromBasket(repBooks.get(1));
+
+        List<Book> basketBooks = repository.getBasketBooks();
+        assertEquals(repBooks.size() - 1, basketBooks.size());
+        assertNotNull(basketBooks.stream().anyMatch(b -> b.getIsbn().equals(repBooks.get(0).getIsbn())));
+        assertNotNull(basketBooks.stream().anyMatch(b -> b.getIsbn().equals(repBooks.get(2).getIsbn())));
     }
 
     @Test

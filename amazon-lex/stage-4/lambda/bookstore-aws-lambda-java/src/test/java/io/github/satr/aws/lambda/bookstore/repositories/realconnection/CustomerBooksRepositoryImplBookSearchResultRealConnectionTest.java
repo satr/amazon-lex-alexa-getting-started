@@ -2,6 +2,7 @@ package io.github.satr.aws.lambda.bookstore.repositories.realconnection;
 
 import io.github.satr.aws.lambda.bookstore.common.TestHelper;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
+import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BookSearchResultItem;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class CustomerBooksRepositoryImplBookSearchResultRealConnectionTest exten
 
     @Test
     public void getBookSearchResult() {
-        List<Book> repBooks = ObjectMother.getRandomBookList(3);
+        List<BookSearchResultItem> repBooks = ObjectMother.getRandomBookSearchResultItemList(3);
         repository.putToBookSearchResult(repBooks);
 
         List<Book> searchResult = repository.getBookSearchResult();

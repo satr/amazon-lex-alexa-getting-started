@@ -19,7 +19,7 @@ public class DatabaseRepositoryFactoryImpl implements DatabaseRepositoryFactory 
 
     @Override
     public CustomerBooksRepository getCustomerBooksRepository() {
-        return customerBooksRepository != null ? customerBooksRepository : (customerBooksRepository = new CustomerBooksRepositoryImpl(dynamoDbClient, dbMapper));
+        return customerBooksRepository != null ? customerBooksRepository : (customerBooksRepository = new CustomerBooksRepositoryImpl(dbMapper));
     }
 
     @Override

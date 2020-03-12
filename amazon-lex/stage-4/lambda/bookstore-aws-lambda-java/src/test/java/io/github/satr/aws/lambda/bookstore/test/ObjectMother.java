@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BasketItem;
+import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BookSearchResultItem;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
 import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
 
@@ -79,29 +80,25 @@ public final class ObjectMother {
         return books;
     }
 
-    public static BasketItem getRandomBasketItem() {
-        return getRandomlyPopulatedBasketItem(new BasketItem());
+    public static List<BookSearchResultItem> getRandomBookSearchResultItemList(int amount) {
+        LinkedList<BookSearchResultItem> books = new LinkedList<>();
+        for (int i = 0; i < amount; i++)
+            books.add(getRandomBookSearchResultItem());
+        return books;
     }
 
-    public static Book getRandomBook(Class cls) {
-        try {
-            return getRandomlyPopulatedBook((Book) cls.getDeclaredConstructor().newInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static BasketItem getRandomBasketItem() {
+        return (BasketItem) getRandomlyPopulatedBook(new BasketItem());
     }
+
+    public static BookSearchResultItem getRandomBookSearchResultItem() {
+        return (BookSearchResultItem) getRandomlyPopulatedBook(new BookSearchResultItem());
+    }
+
 
     private static Book getRandomlyPopulatedBook(Book book) {
-        book.setTitle(getRandomString());
-        book.setAuthor(getRandomString());
-        book.setIssueYear(getRandomInt(1900, 2020));
-        return book;
-    }
-
-    private static BasketItem getRandomlyPopulatedBasketItem(BasketItem book) {
-        book.setTitle(getRandomString());
-        book.setAuthor(getRandomString());
+        book.setTitle("Title-" + getRandomString());
+        book.setAuthor("Author-" + getRandomString());
         book.setIssueYear(getRandomInt(1900, 2020));
         book.setPrice(getRandomFloat(1.5f, 50.9f));
         return book;
@@ -114,7 +111,7 @@ public final class ObjectMother {
     public static float getRandomFloat(float min, float max) {
         int minFloat = (int)(min * 100);
         int maxFloat = (int)(max * 100);
-        return (float)(minFloat + random.nextInt(maxFloat - minFloat))/100;
+        return ((float)(minFloat + random.nextInt(maxFloat - minFloat)))/100;
     }
 
     public static AmazonDynamoDB createInMemoryDb() {
