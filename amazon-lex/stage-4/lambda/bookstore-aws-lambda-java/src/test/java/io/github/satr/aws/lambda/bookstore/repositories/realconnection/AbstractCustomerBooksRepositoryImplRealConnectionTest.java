@@ -1,5 +1,6 @@
 package io.github.satr.aws.lambda.bookstore.repositories.realconnection;
 
+import com.amazonaws.regions.Regions;
 import io.github.satr.aws.lambda.bookstore.repositories.CustomerBooksRepository;
 import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactory;
 import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactoryImpl;
@@ -13,7 +14,7 @@ public abstract class AbstractCustomerBooksRepositoryImplRealConnectionTest {
 
     @BeforeClass
     public static void fixtureSetUp() throws Exception {
-        repositoryFactory = new DatabaseRepositoryFactoryImpl();
+        repositoryFactory = new DatabaseRepositoryFactoryImpl(Regions.US_EAST_1);
     }
 
     @AfterClass

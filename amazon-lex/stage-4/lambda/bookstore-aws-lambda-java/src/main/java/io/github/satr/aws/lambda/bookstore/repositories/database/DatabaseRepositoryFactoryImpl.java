@@ -12,8 +12,8 @@ public class DatabaseRepositoryFactoryImpl implements DatabaseRepositoryFactory 
     private final DynamoDBMapper dbMapper;
     private CustomerBooksRepositoryImpl customerBooksRepository;
 
-    public DatabaseRepositoryFactoryImpl() {
-        dynamoDbClient = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+    public DatabaseRepositoryFactoryImpl(Regions region) {
+        dynamoDbClient = AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
         dbMapper = new DynamoDBMapper(dynamoDbClient);
     }
 

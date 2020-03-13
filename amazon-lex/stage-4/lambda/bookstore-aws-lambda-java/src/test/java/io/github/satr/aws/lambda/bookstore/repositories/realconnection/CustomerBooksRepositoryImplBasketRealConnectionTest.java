@@ -4,6 +4,7 @@ import io.github.satr.aws.lambda.bookstore.common.TestHelper;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BasketItem;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,6 +12,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CustomerBooksRepositoryImplBasketRealConnectionTest extends AbstractCustomerBooksRepositoryImplRealConnectionTest {
+    @Override
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        repository.clearBasket();
+    }
+
     @Test
     public void clearBasket() {
         List<BasketItem> repBooks = ObjectMother.getRandomBasketItemList(3);

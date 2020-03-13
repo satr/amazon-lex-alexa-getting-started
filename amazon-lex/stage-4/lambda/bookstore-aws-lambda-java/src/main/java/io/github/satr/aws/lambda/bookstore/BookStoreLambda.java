@@ -1,6 +1,7 @@
 package io.github.satr.aws.lambda.bookstore;
 // Copyright © 2020, github.com/satr, MIT License
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -19,7 +20,7 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     private IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
     public BookStoreLambda() {
-        this(new ServiceFactoryImpl(new DatabaseRepositoryFactoryImpl()));
+        this(new ServiceFactoryImpl(new DatabaseRepositoryFactoryImpl(getAwsRegionForDynamoDb())));
     }
 
     public BookStoreLambda(ServiceFactory serviceFactory) {
@@ -40,6 +41,10 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
 
         //Handle the request for the intent
         return intentHandlerStrategy.handle(request, logger);
+    }
+
+    private static Regions getAwsRegionForDynamoDb() {
+        return Regions.fromName(System.getenv("AWS_REGION"));
     }
 
     private void logInputProperties(LambdaLogger logger, LexRequest request) {
