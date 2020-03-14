@@ -8,6 +8,13 @@ import io.github.satr.aws.lambda.bookstore.entity.Book;
 
 @DynamoDBTable(tableName="Basket")
 public class BasketItem extends Book {
+    public BasketItem() {
+    }
+
+    public BasketItem(Book book) {
+        copyFrom(book);
+    }
+
     @DynamoDBHashKey(attributeName = "isbn")
     @Override
     public String getIsbn() {

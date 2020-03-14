@@ -1,13 +1,15 @@
-package io.github.satr.aws.lambda.bookstore.repositories;
+package io.github.satr.aws.lambda.bookstore.repositories.localdatabase;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import io.github.satr.aws.lambda.bookstore.repositories.CustomerBooksRepositoryImpl;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-public abstract class AbstractCustomerBooksRepositoryImplTest {
+public abstract class AbstractCustomerBooksRepositoryImplForLocalDatabaseTest {
     protected static AmazonDynamoDB dynamoDbClient;
     private static DynamoDBMapper dbMapper;
     protected CustomerBooksRepositoryImpl repository;

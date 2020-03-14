@@ -18,6 +18,7 @@ public class SearchBookResultServiceImpl implements SearchBookResultService {
 
     @Override
     public void put(List<Book> books) {
+        customerBooksRepository.clearBookSearchResult();
         customerBooksRepository.putToBookSearchResult(books);
     }
 

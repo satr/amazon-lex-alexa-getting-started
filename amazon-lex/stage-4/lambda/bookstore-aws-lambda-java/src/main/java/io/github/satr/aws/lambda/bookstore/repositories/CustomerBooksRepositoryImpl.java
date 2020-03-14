@@ -17,7 +17,7 @@ public class CustomerBooksRepositoryImpl extends AbstractRepository implements C
 
     @Override
     public void addToBasket(Book book) {
-        dbMapper.save(book);
+        dbMapper.save(new BasketItem(book));
     }
 
     @Override
@@ -39,11 +39,6 @@ public class CustomerBooksRepositoryImpl extends AbstractRepository implements C
     }
 
     @Override
-    public void putToBookSearchResult(List<? extends Book> books) {
-        dbMapper.batchSave(books);
-    }
-
-    @Override
     public List<Book> getBasketBooks() {
         return dbMapper.scan(BasketItem.class, new DynamoDBScanExpression()).stream().collect(Collectors.toList());
     }
@@ -51,5 +46,16 @@ public class CustomerBooksRepositoryImpl extends AbstractRepository implements C
     @Override
     public List<Book> getBookSearchResult() {
         return dbMapper.scan(BookSearchResultItem.class, new DynamoDBScanExpression()).stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public void putToBookSearchResult(List<? extends Book> books) {
+        dbMapper.batchSave(books.stream().map(b -> new BookSearchResultItem(b)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void clearBookSearchResult() {
+        PaginatedScanList<BookSearchResultItem> items = dbMapper.scan(BookSearchResultItem.class, new DynamoDBScanExpression());
+        dbMapper.batchDelete(items);
     }
 }

@@ -13,7 +13,7 @@ public class LexRequestFactoryTest {
 
     @Test
     public void createFromOrderBookIntent() {
-        Map<String, Object> input = ObjectMother.createMapFromJson("simple-order-book-intent-request.json");
+        Map<String, Object> input = ObjectMother.createMapFromJson("simple-search-book-by-title-intent-request.json");
 
         LexRequest lexRequest = LexRequestFactory.createFrom(input);
 
@@ -23,10 +23,10 @@ public class LexRequestFactoryTest {
         assertEquals("BotName", lexRequest.getBotName());
         assertEquals(InvocationSource.DialogCodeHook, lexRequest.getInvocationSource());
         assertEquals("user-id-as-some-random-character-set", lexRequest.getUserId());
-        assertEquals("OrderBookIntent", lexRequest.getIntentName());
+        assertEquals("SearchBookByTitleIntent", lexRequest.getIntentName());
         assertFalse(lexRequest.getSlots().isEmpty());
         assertNotNull("Some Book Title", lexRequest.getSlots().get(IntentSlotName.BookTitle));
-        assertNotNull("Some Author", lexRequest.getSlots().get(IntentSlotName.BookAuthor));
+        assertNotNull("starts", lexRequest.getSlots().get(IntentSlotName.WordsPosition));
         assertFalse(lexRequest.getSessionAttributes().isEmpty());
         assertNotNull("SessionVal1", lexRequest.getSessionAttributes().get("attr1"));
         assertNotNull("SessionVal2", lexRequest.getSessionAttributes().get("attr2"));

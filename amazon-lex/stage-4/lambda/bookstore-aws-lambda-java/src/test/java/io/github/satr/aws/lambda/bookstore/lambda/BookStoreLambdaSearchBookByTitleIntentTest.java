@@ -4,20 +4,27 @@ package io.github.satr.aws.lambda.bookstore.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.BookStoreLambda;
-import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
+import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.respond.DialogAction;
 import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
+import io.github.satr.aws.lambda.bookstore.services.BasketService;
+import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
+import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
+import io.github.satr.aws.lambda.bookstore.services.ServiceFactory;
+import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,11 +34,23 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
     Context context;
     @Mock
     LambdaLogger lambdaLogger;
+    @Mock
+    ServiceFactory serviceFactory;
+    @Mock
+    BookStorageService bookStorageService;
+    @Mock
+    SearchBookResultService searchBookResultService;
+    @Mock
+    BasketService basketService;
 
     @Before
     public void setUp() throws Exception {
-        lambda = new BookStoreLambda();
+        when(serviceFactory.getBookStorageService()).thenReturn(bookStorageService);
+        when(serviceFactory.getSearchBookResultService()).thenReturn(searchBookResultService);
+        when(serviceFactory.getBasketService()).thenReturn(basketService);
         when(context.getLogger()).thenReturn(lambdaLogger);
+
+        lambda = new BookStoreLambda(serviceFactory);
     }
 
     @Test
@@ -65,5 +84,16 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
         assertEquals(Message.ContentType.PlainText, respond.getDialogAction().getMessage().getContentType());
         assertNotNull(respond.getDialogAction().getMessage().getContent());
         System.out.println(respond.getDialogAction().getMessage().getContent());
+    }
+
+    @Test
+    public void handleRequestWithFullOrderBookIntentRequestPutsFoundBooksToBasketRepo() {
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+        List<Book> foundBookList = ObjectMother.getRandomBookList(3);
+        when(bookStorageService.getBooksWithTitleStartingWith("Some Book Title")).thenReturn(foundBookList);
+
+        lambda.handleRequest(input, context);
+
+        verify(searchBookResultService).put(foundBookList);
     }
 }

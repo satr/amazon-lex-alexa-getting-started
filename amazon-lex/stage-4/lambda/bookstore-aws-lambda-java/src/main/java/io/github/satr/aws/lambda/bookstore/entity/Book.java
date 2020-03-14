@@ -14,6 +14,14 @@ public class Book {
         this.isbn = String.valueOf(Math.abs(UUID.randomUUID().toString().hashCode()));//fake ISBN
     }
 
+    protected void copyFrom(Book book) {
+        setIsbn(book.getIsbn());
+        setAuthor(book.getAuthor());
+        setTitle(book.getTitle());
+        setIssueYear(book.getIssueYear());
+        setPrice(book.getPrice());
+    }
+
     public String getIsbn() {
         return isbn;
     }

@@ -1,13 +1,15 @@
-package io.github.satr.aws.lambda.bookstore.repositories.database;
+package io.github.satr.aws.lambda.bookstore.repositories.localdatabase;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.*;
+import io.github.satr.aws.lambda.bookstore.repositories.database.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public final class TableHelper {
+public final class LocalDatabaseTableHelper {
 
     public static void deleteTableBasket(AmazonDynamoDB dynamoDbClient) {
         dynamoDbClient.deleteTable(Table.Basket.Name);

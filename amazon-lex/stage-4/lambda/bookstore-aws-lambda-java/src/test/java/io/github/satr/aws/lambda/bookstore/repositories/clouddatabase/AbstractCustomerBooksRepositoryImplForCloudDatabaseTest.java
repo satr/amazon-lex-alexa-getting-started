@@ -1,4 +1,5 @@
-package io.github.satr.aws.lambda.bookstore.repositories.realconnection;
+package io.github.satr.aws.lambda.bookstore.repositories.clouddatabase;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.regions.Regions;
 import io.github.satr.aws.lambda.bookstore.repositories.CustomerBooksRepository;
@@ -8,7 +9,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-public abstract class AbstractCustomerBooksRepositoryImplRealConnectionTest {
+public abstract class AbstractCustomerBooksRepositoryImplForCloudDatabaseTest {
     private static DatabaseRepositoryFactory repositoryFactory;
     protected CustomerBooksRepository repository;
 

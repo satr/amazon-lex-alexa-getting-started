@@ -8,6 +8,13 @@ import io.github.satr.aws.lambda.bookstore.entity.Book;
 
 @DynamoDBTable(tableName="BookSearchResult")
 public class BookSearchResultItem extends Book {
+    public BookSearchResultItem() {
+    }
+
+    public BookSearchResultItem(Book book) {
+        copyFrom(book);
+    }
+
     @DynamoDBHashKey(attributeName = "isbn")
     @Override
     public String getIsbn() {

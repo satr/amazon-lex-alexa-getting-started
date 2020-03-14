@@ -1,8 +1,8 @@
-package io.github.satr.aws.lambda.bookstore.repositories;
+package io.github.satr.aws.lambda.bookstore.repositories.localdatabase;
+// Copyright © 2020, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.common.TestHelper;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
-import io.github.satr.aws.lambda.bookstore.repositories.database.TableHelper;
 import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BasketItem;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import org.junit.After;
@@ -12,15 +12,18 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CustomerBooksRepositoryImplBasketTest extends AbstractCustomerBooksRepositoryImplTest {
+/*
+ * For each running test - the table "Basket" is created in the local DynamoDb instance and deleted afterwards
+ * */
+public class CustomerBooksRepositoryImplBasketForLocalDatabaseTest extends AbstractCustomerBooksRepositoryImplForLocalDatabaseTest {
 
     public void customSetUp() {
-        TableHelper.createTableBasket(dynamoDbClient);
+        LocalDatabaseTableHelper.createTableBasket(dynamoDbClient);
     }
 
     @After
     public void tearDown() throws Exception {
-        TableHelper.deleteTableBasket(dynamoDbClient);
+        LocalDatabaseTableHelper.deleteTableBasket(dynamoDbClient);
     }
 
     @Test
@@ -53,11 +56,12 @@ public class CustomerBooksRepositoryImplBasketTest extends AbstractCustomerBooks
 
         assertNotNull(basketBooks);
         assertEquals(repBooks.size(), basketBooks.size());
-        assertEquals(repBooks.get(0).getIsbn(), basketBooks.get(0).getIsbn());
-        assertEquals(repBooks.get(0).getAuthor(), basketBooks.get(0).getAuthor());
-        assertEquals(repBooks.get(0).getTitle(), basketBooks.get(0).getTitle());
-        assertEquals(repBooks.get(0).getIssueYear(), basketBooks.get(0).getIssueYear());
-        assertEquals(repBooks.get(0).getPrice(), basketBooks.get(0).getPrice(), 0.0001f);
+        BasketItem oneItem = repBooks.stream().filter(b -> b.getIsbn().equals(basketBooks.get(0).getIsbn())).findFirst().orElse(null);
+        assertNotNull(oneItem);
+        assertEquals(oneItem.getAuthor(), basketBooks.get(0).getAuthor());
+        assertEquals(oneItem.getTitle(), basketBooks.get(0).getTitle());
+        assertEquals(oneItem.getIssueYear(), basketBooks.get(0).getIssueYear());
+        assertEquals(oneItem.getPrice(), basketBooks.get(0).getPrice(), 0.0001f);
         assertTrue(basketBooks.stream().allMatch(resBook -> repBooks.stream().anyMatch(repBook -> TestHelper.isEqual(resBook, repBook))));
     }
 }
