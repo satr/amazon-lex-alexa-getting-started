@@ -18,6 +18,13 @@ Command to upload function-code (when current dir is root-folder of the repo)
 ```
 aws lambda update-function-code --function-name BookStoreLambdaJavaStage4 --zip-file fileb://amazon-lex/stage-4/lambda/bookstore-aws-lambda-java/build/libs/bookstore-aws-lambda-java-1.0-Stage-4.jar
 ```
+### References related to DynamoDb
+
+* [DynamoDbLocal  Maven repository](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.Maven.html)
+* [Optional Configuration Settings for DynamoDBMapper](https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/DynamoDBMapper.OptionalConfig.html)
+* [Working with Queries in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults)
+* [How to Create an AWS IAM Policy to Grant AWS Lambda Access to an Amazon DynamoDB Table](https://aws.amazon.com/blogs/security/how-to-create-an-aws-iam-policy-to-grant-aws-lambda-access-to-an-amazon-dynamodb-table/)
+
 ### Create database tables
 In the AWS DynamoDb database - create two tables: `Basket` and `BookSearchResult`, with with "Primary partition key": isbn, with type "String"
 ### Add to AWS Lambda role policy to access AWS DynamoDb
