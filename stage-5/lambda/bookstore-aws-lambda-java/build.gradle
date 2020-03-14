@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+}
+
+group 'io.github.satr'
+version '1.0-Stage-4'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://dynamodb-local.s3-website-us-west-2.amazonaws.com/release'
+    }
+}
+
+configurations {
+    dynamodb
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.mockito:mockito-all:1.10.19"
+    testImplementation 'com.amazonaws:DynamoDBLocal:1.11.477'
+    dynamodb fileTree (dir: 'lib', include: ["*.dylib", "*.so", "*.dll"])
+    dynamodb 'com.amazonaws:DynamoDBLocal:1.11.477'
+    compile "com.amazonaws:aws-lambda-java-core:1.2.0"
+    compile "com.amazonaws:aws-java-sdk-lambda:1.11.718"
+    compile "com.amazonaws:aws-java-sdk-dynamodb:1.11.728"
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task copyNativeDeps(type: Copy) {
+    from configurations.dynamodb
+    into "$project.buildDir/libs/"
+}
+
+test.dependsOn copyNativeDeps
+test.doFirst {
+    systemProperty "java.library.path", 'build/libs'
+}

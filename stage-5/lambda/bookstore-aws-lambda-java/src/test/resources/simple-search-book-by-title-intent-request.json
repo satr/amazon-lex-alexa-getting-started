@@ -1,0 +1,23 @@
+{
+  "messageVersion": "1.0",
+  "invocationSource": "DialogCodeHook",
+  "userId": "user-id-as-some-random-character-set",
+  "sessionAttributes":{
+    "attr1": "SessionVal1",
+    "attr2": "SessionVal2"
+  },
+  "bot": {
+    "name": "BotName",
+    "alias": "$LATEST",
+    "version": "$LATEST"
+  },
+  "outputDialogMode": "Text",
+  "currentIntent": {
+    "name": "SearchBookByTitleIntent",
+    "slots": {
+        "BookTitle": "Some Book Title",
+        "WordsPosition": "starts"
+      },
+    "confirmationStatus": "None"
+  }
+}

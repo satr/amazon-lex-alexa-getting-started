@@ -1,0 +1,50 @@
+{
+  "messageVersion": "1.0",
+  "invocationSource": "FulfillmentCodeHook",
+  "userId": "user-id-as-some-random-character-set",
+  "sessionAttributes": {
+    "attr1": "SessionVal1",
+    "attr2": "SessionVal2"
+  },
+  "requestAttributes": "null",
+  "bot": {
+    "name": "BookStore",
+    "alias": "$LATEST",
+    "version": "$LATEST"
+  },
+  "outputDialogMode": "Text",
+  "currentIntent": {
+    "name": "SearchBookByTitleIntent",
+    "slots": {
+      "WordsPosition": "starts",
+      "BookTitle": "Some Book Title"
+    },
+    "slotDetails": {
+      "WordsPosition": {
+        "resolutions": [{ "value": "starts" }],
+        "originalValue": "starts"
+      },
+      "BookTitle": {
+        "resolutions": [],
+        "originalValue": "Some Book Title"
+      }
+    }
+  },
+  "confirmationStatus": "None",
+  "inputTranscript": "Some Book Title",
+  "recentIntentSummaryView": [
+    {
+      "intentName": "SearchBookByTitleIntent",
+      "checkpointLabel": "null",
+      "slots": {
+        "WordsPosition": "starts",
+        "BookTitle": "null"
+      },
+      "confirmationStatus": "None",
+      "dialogActionType": "ElicitSlot",
+      "fulfillmentState": "null",
+      "slotToElicit": "BookTitle"
+    }
+  ],
+  "sentimentResponse": "null"
+}

@@ -1,0 +1,412 @@
+{
+  "interactionModel": {
+      "languageModel": {
+          "invocationName": "bookstoreone",
+          "intents": [
+              {
+                  "name": "SearchBookByTitleIntent",
+                  "slots": [
+                      {
+                          "name": "BookTitle",
+                          "type": "AMAZON.Book"
+                      },
+                      {
+                          "name": "WordsPosition",
+                          "type": "TextPosition"
+                      }
+                  ],
+                  "samples": [
+                      "Do you have a book which {WordsPosition}  with {BookTitle}",
+                      "Do you have a book which title {WordsPosition}  {BookTitle}",
+                      "Do you have a book with a name {BookTitle}",
+                      "Any book with {BookTitle}",
+                      "Any book with title {BookTitle}",
+                      "Have you book with  a name {BookTitle}",
+                      "Could you check if you have a book with a title {BookTitle}",
+                      "Could you check if you have a book {BookTitle}",
+                      "Could you check if you have a book with a title {WordsPosition} with {BookTitle}",
+                      "Could you check if you have a book with {WordsPosition} with {BookTitle}",
+                      "Do you have a book which {WordsPosition} {BookTitle}",
+                      "Any book with title  {WordsPosition}  {BookTitle}"
+                  ]
+              },
+              {
+                  "name": "ShowBookSearchResultIntent",
+                  "slots": [],
+                  "samples": [
+                      "Show me the found book list",
+                      "Show the found list",
+                      "Show found books",
+                      "Show searched books",
+                      "Give me found books",
+                      "Show last search result",
+                      "Show me the search result",
+                      "Give last search",
+                      "Give the last search",
+                      "Give last search result"
+                  ]
+              },
+              {
+                  "name": "IntroductionIntent",
+                  "slots": [],
+                  "samples": [
+                      "Help",
+                      "What can I do",
+                      "What is it",
+                      "What are my options",
+                      "I would like to order books",
+                      "Hello",
+                      "Hi"
+                  ]
+              },
+              {
+                  "name": "CompleteOrderIntent",
+                  "slots": [],
+                  "samples": [
+                      "Complete the order",
+                      "I would like to complete the order",
+                      "I will pay for it",
+                      "Please complete the order",
+                      "I finished with ordering",
+                      "Let me take this",
+                      "I will take all this"
+                  ]
+              },
+              {
+                  "name": "SelectBookIntent",
+                  "slots": [
+                      {
+                          "name": "ChooseFromListAction",
+                          "type": "ChooseFromListAction"
+                      },
+                      {
+                          "name": "ItemNumber",
+                          "type": "AMAZON.NUMBER"
+                      },
+                      {
+                          "name": "PositionInSequence",
+                          "type": "PositionInSequence"
+                      }
+                  ],
+                  "samples": [
+                      "{ChooseFromListAction} the book number {ItemNumber}",
+                      "{ChooseFromListAction} me the book {ItemNumber}",
+                      "{ChooseFromListAction} details of the book {ItemNumber}",
+                      "Please {ChooseFromListAction} the book number {ItemNumber}",
+                      "Please {ChooseFromListAction} the {PositionInSequence} book",
+                      "Please {ChooseFromListAction} the {PositionInSequence} one",
+                      "{ChooseFromListAction} details of the {PositionInSequence} one",
+                      "{ChooseFromListAction} details of the {PositionInSequence} book",
+                      "{ChooseFromListAction} the {PositionInSequence} one",
+                      "{ChooseFromListAction} the {PositionInSequence} book",
+                      "I will {ChooseFromListAction} the number {ItemNumber}",
+                      "I will {ChooseFromListAction} number {ItemNumber}",
+                      "Let me {ChooseFromListAction} the book number {ItemNumber}",
+                      "I will {ChooseFromListAction} the {PositionInSequence} book",
+                      "I would like to {ChooseFromListAction} number {ItemNumber}",
+                      "{ChooseFromListAction}  {PositionInSequence} book",
+                      "{ChooseFromListAction} {PositionInSequence}"
+                  ]
+              },
+              {
+                  "name": "ShowBasketIntent",
+                  "slots": [],
+                  "samples": [
+                      "Show the basket",
+                      "What is in basket",
+                      "What books I ordered",
+                      "Show me the ordered",
+                      "Show me the basket",
+                      "Show the ordered",
+                      "What did I ordered",
+                      "What have I ordered",
+                      "What is in my basket"
+                  ]
+              },
+              {
+                  "name": "AddBookToBasketIntent",
+                  "slots": [],
+                  "samples": [
+                      "I will buy it",
+                      "I will buy this book",
+                      "I will order this book",
+                      "I would order this book",
+                      "I would like to order this book",
+                      "I would like to order the selected book",
+                      "I would like to buy it",
+                      "I would like to buy this",
+                      "I would like to buy this book",
+                      "I would like to buy last selected book",
+                      "I will take it",
+                      "Take it please",
+                      "Add it to basket",
+                      "Add the book to basket",
+                      "Add to basket",
+                      "Add it to selected",
+                      "Add this to selected",
+                      "Add this book to selected"
+                  ]
+              },
+              {
+                  "name": "RemoveBookFromBasketIntent",
+                  "slots": [
+                      {
+                          "name": "ItemNumber",
+                          "type": "AMAZON.NUMBER"
+                      },
+                      {
+                          "name": "PositionInSequence",
+                          "type": "PositionInSequence"
+                      }
+                  ],
+                  "samples": [
+                      "I do not need the book number {ItemNumber}",
+                      "I do not need the book {ItemNumber}",
+                      "Exclude the book {ItemNumber}",
+                      "Exlode the book number {ItemNumber}",
+                      "Remove the book {ItemNumber}",
+                      "Remove details of the book {ItemNumber}",
+                      "Please remove the book number {ItemNumber}",
+                      "Please remove the {PositionInSequence} book",
+                      "Please drop the {PositionInSequence} one",
+                      "Delete the book number {ItemNumber}",
+                      "Delete the book {ItemNumber}",
+                      "Drop the book {ItemNumber}",
+                      "Please delete the book number {ItemNumber}",
+                      "Please delete the {PositionInSequence} book",
+                      "Please remove the {PositionInSequence} one",
+                      "Remove the {PositionInSequence} one",
+                      "Remove the {PositionInSequence} book",
+                      "Delete the {PositionInSequence} one",
+                      "Delete the {PositionInSequence} book",
+                      "Delete the number {ItemNumber}",
+                      "Delete number {ItemNumber}",
+                      "Let me remove the book number {ItemNumber}",
+                      "I will remove the {PositionInSequence} book",
+                      "I would like to remove number {ItemNumber}"
+                  ]
+              },
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              }
+          ],
+          "types": [
+              {
+                  "name": "ChooseFromListAction",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "show",
+                              "synonyms": [
+                                  "give",
+                                  "select",
+                                  "choose",
+                                  "pick"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "order",
+                              "synonyms": [
+                                  "get",
+                                  "take"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "PositionInSequence",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "sixth",
+                              "synonyms": [
+                                  "6th",
+                                  "6-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "tenth",
+                              "synonyms": [
+                                  "10th",
+                                  "10-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "last",
+                              "synonyms": [
+                                  "bottom"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "third",
+                              "synonyms": [
+                                  "3rd",
+                                  "3-rd"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "seventh",
+                              "synonyms": [
+                                  "7th",
+                                  "7-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "twelfth",
+                              "synonyms": [
+                                  "12th",
+                                  "12-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "eighth",
+                              "synonyms": [
+                                  "8th",
+                                  "8-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "ninth",
+                              "synonyms": [
+                                  "9th",
+                                  "9-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "fifth",
+                              "synonyms": [
+                                  "5th",
+                                  "5-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "eleventh",
+                              "synonyms": [
+                                  "11th",
+                                  "11-th"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "first",
+                              "synonyms": [
+                                  "1st",
+                                  "1-st"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "second",
+                              "synonyms": [
+                                  "2nd",
+                                  "2-nd"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "TextPosition",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "contains",
+                              "synonyms": [
+                                  "contain"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "middle",
+                              "synonyms": [
+                                  "in middle",
+                                  "in the middle",
+                                  "in it"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "excludes",
+                              "synonyms": [
+                                  "exclude",
+                                  "excluding",
+                                  "exclusive",
+                                  "without",
+                                  "out of"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "ends",
+                              "synonyms": [
+                                  "finishes",
+                                  "end",
+                                  "stops",
+                                  "stop",
+                                  "at the end",
+                                  "ending"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "has",
+                              "synonyms": [
+                                  "have",
+                                  "with"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "starts",
+                              "synonyms": [
+                                  "start",
+                                  "begins",
+                                  "begin",
+                                  "beginning",
+                                  "starting"
+                              ]
+                          }
+                      }
+                  ]
+              }
+          ]
+      }
+  }
+}
