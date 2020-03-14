@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'io.github.satr'
-version '1.0-Stage-4'
+version '1.0-Stage-5'
 
 sourceCompatibility = 1.8
 
@@ -27,6 +27,8 @@ dependencies {
     compile "com.amazonaws:aws-lambda-java-core:1.2.0"
     compile "com.amazonaws:aws-java-sdk-lambda:1.11.718"
     compile "com.amazonaws:aws-java-sdk-dynamodb:1.11.728"
+    compile group: 'com.amazon.alexa', name: 'ask-sdk', version:'2.27.2'
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-log4j2', version:'1.1.0'
 }
 
 jar {

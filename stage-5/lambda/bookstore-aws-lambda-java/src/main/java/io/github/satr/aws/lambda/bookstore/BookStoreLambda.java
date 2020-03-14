@@ -16,7 +16,6 @@ import java.util.Map;
 
 //Lambda with POJO as a respond
 public class BookStoreLambda implements RequestHandler<Map<String, Object>, Object>  {
-
     private IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
     public BookStoreLambda() {
