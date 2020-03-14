@@ -6,11 +6,11 @@
   },
   "resource": {
     "name": "BookStoreStageFour",
-    "version": "7",
+    "version": "1",
     "intents": [
       {
         "name": "SearchBookByTitleIntent",
-        "version": "9",
+        "version": "11",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -68,7 +68,7 @@
       },
       {
         "name": "ShowBookSearchResultIntent",
-        "version": "1",
+        "version": "3",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -88,7 +88,7 @@
       },
       {
         "name": "IntroductionIntent",
-        "version": "4",
+        "version": "6",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -114,7 +114,7 @@
       },
       {
         "name": "CompleteOrderIntent",
-        "version": "1",
+        "version": "3",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -131,7 +131,7 @@
       },
       {
         "name": "SelectBookIntent",
-        "version": "3",
+        "version": "5",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -212,7 +212,7 @@
       },
       {
         "name": "ShowBasketIntent",
-        "version": "2",
+        "version": "4",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -231,7 +231,7 @@
       },
       {
         "name": "AddBookToBasketIntent",
-        "version": "1",
+        "version": "3",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
@@ -259,7 +259,7 @@
       },
       {
         "name": "RemoveBookFromBasketIntent",
-        "version": "1",
+        "version": "3",
         "fulfillmentActivity": {
           "type": "ReturnIntent"
         },
