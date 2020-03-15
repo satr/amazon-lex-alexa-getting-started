@@ -1,4 +1,5 @@
-# Amazon Lex and Amazin Alexa: getting started
+# Amazon Lex and Amazon Alexa Skill: getting started
+Runtime: Java 11
 
 ### Stages
 1. [AWS Lambda fuction for basic Amazon Lex requests handling](https://github.com/satr/amazon-lex-alexa-getting-started/tree/master/stage-1)
