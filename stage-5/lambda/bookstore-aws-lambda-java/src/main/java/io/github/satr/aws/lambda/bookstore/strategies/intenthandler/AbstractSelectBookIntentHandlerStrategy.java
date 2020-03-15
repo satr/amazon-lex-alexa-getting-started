@@ -3,8 +3,8 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.NotSelectedBookStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.SelectBookStrategy;
 
@@ -12,13 +12,13 @@ public abstract class AbstractSelectBookIntentHandlerStrategy extends AbstractIn
     protected SelectBookStrategy notSelectedBookStrategy = new NotSelectedBookStrategy();;
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(Request request, LambdaLogger logger) {
         String itemNumber = request.getSlot(IntentSlotName.ItemNumber);
         String positionInSequence = request.getSlot(IntentSlotName.PositionInSequence);
         return customHandle(request, getCloseFulfilledLexRespond(request, "Undefined message"), itemNumber, positionInSequence);
     }
 
-    protected abstract LexRespond customHandle(LexRequest request, LexRespond respond, String itemNumber, String positionInSequence);
+    protected abstract Response customHandle(Request request, Response respond, String itemNumber, String positionInSequence);
 
     protected SelectBookStrategy selectBookBy(SelectBookStrategy selectBookStrategy, String itemNumber, String positionInSequence) {
         Integer itemNumberParsed;

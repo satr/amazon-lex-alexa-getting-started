@@ -1,4 +1,4 @@
-package io.github.satr.aws.lambda.bookstore.alexaskillhandlers;
+package io.github.satr.aws.lambda.bookstore.ask.handlers;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.Response;
@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 
 import java.util.Optional;
 
-public class NotRecognizedIntentHandler extends AbstractRequestHandler {
-    public NotRecognizedIntentHandler(Logger logger) {
+public class NotRecognizedAskIntentHandler extends AbstractAskRequestHandler {
+    public NotRecognizedAskIntentHandler(Logger logger) {
         super(logger);
     }
 

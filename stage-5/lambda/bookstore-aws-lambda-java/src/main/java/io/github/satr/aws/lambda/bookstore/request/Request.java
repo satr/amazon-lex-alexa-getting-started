@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class LexRequest {
+public class Request {
     private String botName;
     private String intentName;
     private String userId;

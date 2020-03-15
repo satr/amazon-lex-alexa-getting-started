@@ -1,17 +1,17 @@
 package io.github.satr.aws.lambda.bookstore.respond;
 // Copyright © 2020, github.com/satr, MIT License
 
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
+import io.github.satr.aws.lambda.bookstore.request.Request;
 
 import java.util.Map;
 
-public class LexRespond {
+public class Response {
     private DialogAction dialogAction;
     private Map<String, Object> sessionAttributes;
 //    @JsonIgnore
 //    private String sessionId;
 
-    public LexRespond(DialogAction dialogAction) {
+    public Response(DialogAction dialogAction) {
 
         this.dialogAction = dialogAction;
     }
@@ -38,7 +38,7 @@ public class LexRespond {
 //        return sessionId;
 //    }
 
-    public void setSessionFrom(LexRequest request) {
+    public void setSessionFrom(Request request) {
         setSessionAttributes(request.getSessionAttributes());
 //        setSessionId(request.getSessionIdOrCreateIfEmpty());
     }

@@ -1,4 +1,4 @@
-package io.github.satr.aws.lambda.bookstore.alexaskillhandlers;
+package io.github.satr.aws.lambda.bookstore.ask.handlers;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 
 import java.util.Optional;
 
-public abstract class AbstractRequestHandler implements RequestHandler {
+public abstract class AbstractAskRequestHandler implements RequestHandler {
     protected final Logger logger;
 
-    public AbstractRequestHandler(Logger logger) {
+    public AbstractAskRequestHandler(Logger logger) {
         this.logger = logger;
     }
 

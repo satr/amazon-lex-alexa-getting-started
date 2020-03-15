@@ -5,7 +5,7 @@ import com.amazon.ask.Skill;
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
 import com.amazonaws.regions.Regions;
-import io.github.satr.aws.lambda.bookstore.alexaskillhandlers.AlexaSkillRequestHandlerFactory;
+import io.github.satr.aws.lambda.bookstore.ask.handlers.AskRequestHandlerFactory;
 import io.github.satr.aws.lambda.bookstore.constants.IntentName;
 import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactoryImpl;
 import io.github.satr.aws.lambda.bookstore.services.ServiceFactory;
@@ -13,21 +13,21 @@ import io.github.satr.aws.lambda.bookstore.services.ServiceFactoryImpl;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class BookStoreAlexaSkillLambda extends SkillStreamHandler {
-    private static Logger logger = getLogger(BookStoreAlexaSkillLambda.class);
-    private static AlexaSkillRequestHandlerFactory requestHandlerFactory;
+public class BookStoreAskLambda extends SkillStreamHandler {
+    private static Logger logger = getLogger(BookStoreAskLambda.class);
+    private static AskRequestHandlerFactory requestHandlerFactory;
 
-    public BookStoreAlexaSkillLambda() {
+    public BookStoreAskLambda() {
         super(getSkill(new ServiceFactoryImpl(new DatabaseRepositoryFactoryImpl(getAwsRegionForDynamoDb()))));
     }
 
-    public BookStoreAlexaSkillLambda(ServiceFactory serviceFactory) {
+    public BookStoreAskLambda(ServiceFactory serviceFactory) {
         super(getSkill(serviceFactory));
     }
 
     private static Skill getSkill(ServiceFactory serviceFactory) {
-        requestHandlerFactory = new AlexaSkillRequestHandlerFactory(serviceFactory, logger);
-        return Skills.standard()
+        requestHandlerFactory = new AskRequestHandlerFactory(serviceFactory, logger);
+        Skill skill = Skills.standard()
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.Introduction))
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.SearchBookByTitle))
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.ShowBookSearchResult))
@@ -35,9 +35,10 @@ public class BookStoreAlexaSkillLambda extends SkillStreamHandler {
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.AddBookToBasket))
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.ShowBasket))
                 .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.RemoveBookFromBasket))
-                .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.CompleteOrder))
+                .addRequestHandler(requestHandlerFactory.getRequestHandlerFor(IntentName.CompleteOrder).withShouldEndSession(true))
                 .addRequestHandler(requestHandlerFactory.getNotRecognizedIntentHandler())
                 .build();
+        return skill;
     }
 
     private static Regions getAwsRegionForDynamoDb() {

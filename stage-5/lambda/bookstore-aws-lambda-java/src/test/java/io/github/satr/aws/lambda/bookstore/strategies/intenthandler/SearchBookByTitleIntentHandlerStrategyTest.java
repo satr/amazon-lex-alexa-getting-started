@@ -5,8 +5,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import org.junit.Before;
@@ -29,18 +29,18 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
     BookStorageService bookStorageService;
     @Mock
     SearchBookResultService searchBookResultService;
-    private LexRequest request;
+    private Request request;
     private SearchBookByTitleIntentHandlerStrategy strategy;
 
     @Before
     public void setUp() throws Exception {
-        request = ObjectMother.createLexRequestFromJson("simple-search-book-by-title-intent-request.json");
+        request = ObjectMother.createLexRequestFromJson("simple-search-book-by-title-intent-request-lex.json");
         strategy = new SearchBookByTitleIntentHandlerStrategy(bookStorageService, searchBookResultService);
     }
 
     @Test
     public void handleRequestReturnsNotEmptyRespond() {
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         assertNotNull(respond);
         assertNotNull(respond.getDialogAction());
@@ -57,7 +57,7 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
         request.getSessionAttributes().put(attrKey2, attrValue2);
         request.setSessionId(null);
 
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         Map<String, Object> sessionAttributes = respond.getSessionAttributes();
         assertNotNull(sessionAttributes);
@@ -72,7 +72,7 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
         String titleQuery = ObjectMother.getRandomString();
         setupSearchForBook(titleQuery, null, 0);
 
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         String respondMessage = respond.getDialogAction().getMessage().getContent();
         assertTrue(respondMessage.contains(String.format("Searched books by title: \"%s\"", titleQuery)));
@@ -85,7 +85,7 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
         String wordsPosition = "starts";
         setupSearchForBook(titleQuery, wordsPosition, 0);
 
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         String respondMessage = respond.getDialogAction().getMessage().getContent();
         assertTrue(respondMessage.contains(String.format("Searched books \"%s\" in title \"%s\"", wordsPosition, titleQuery)));
@@ -97,7 +97,7 @@ public class SearchBookByTitleIntentHandlerStrategyTest {
         String titleQuery = ObjectMother.getRandomString();
         List<Book> bookSearchResult = setupSearchForBook(titleQuery, null, 3);
 
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         String respondMessage = respond.getDialogAction().getMessage().getContent();
         String[] respondMessageLines = respondMessage.split("\n");

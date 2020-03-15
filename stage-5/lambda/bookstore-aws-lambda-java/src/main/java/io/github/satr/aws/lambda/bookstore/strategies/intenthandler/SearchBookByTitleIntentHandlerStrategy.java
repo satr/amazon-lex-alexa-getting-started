@@ -7,8 +7,8 @@ import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import io.github.satr.aws.lambda.bookstore.strategies.booksearch.*;
@@ -31,11 +31,16 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
     }
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(Request request, LambdaLogger logger) {
         StringBuilder responseMessageBuilder = new StringBuilder();
 
         String wordsPosition = request.getSlot(IntentSlotName.WordsPosition);
         String titleQuery = request.getSlot(IntentSlotName.BookTitle);
+        if(titleQuery == null || titleQuery.length() < 2) {
+            logger.log(String.format("SearchBookByTitle: WordsPosition=\"%s\", BookTitle=\"%s\"", wordsPosition, titleQuery));
+            return getCloseFulfilledLexRespond(request, getInvalidTitleMessage(wordsPosition));
+        }
+
         responseMessageBuilder.append(getQueryDescription(wordsPosition, titleQuery) + "\n");
 
         List<Book> bookSearchResult = getBookSearchStrategyBy(wordsPosition).queryBy(titleQuery);
@@ -49,12 +54,20 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
         responseMessageBuilder.append(BookListFormatter.getShortDescriptionList(bookSearchResult,
                         "Found %s:\n", BookListFormatter.amountOfBooks(bookSearchResult.size())));
 
-        LexRespond respond = getCloseFulfilledLexRespond(request, responseMessageBuilder);
+        Response respond = getCloseFulfilledLexRespond(request, responseMessageBuilder);
 
         if(bookSearchResult.size() == 1)
             respond.setSessionAttribute(SessionAttributeKey.SelectedBookIsbn, bookSearchResult.get(0).getIsbn());//auto-select the only found book
 
         return respond;
+    }
+
+    private StringBuilder getInvalidTitleMessage(String wordsPosition) {
+        StringBuilder builder = new StringBuilder("Sorry, could you repeat what a title " + wordsPosition);
+        if(wordsPosition.equals(IntentSlotValue.WordsPosition.Contains))
+            builder.append(" with");
+        builder.append("?");
+        return builder;
     }
 
     private BookSearchStrategy getBookSearchStrategyBy(String wordsPosition) {

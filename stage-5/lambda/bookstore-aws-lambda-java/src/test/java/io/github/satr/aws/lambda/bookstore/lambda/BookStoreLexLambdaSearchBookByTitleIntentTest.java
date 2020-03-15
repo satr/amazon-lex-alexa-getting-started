@@ -3,10 +3,10 @@ package io.github.satr.aws.lambda.bookstore.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import io.github.satr.aws.lambda.bookstore.BookStoreLambda;
+import io.github.satr.aws.lambda.bookstore.BookStoreLexLambda;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.respond.DialogAction;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.respond.Message;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
@@ -28,8 +28,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookStoreLambdaSearchBookByTitleIntentTest {
-    private BookStoreLambda lambda;
+public class BookStoreLexLambdaSearchBookByTitleIntentTest {
+    private BookStoreLexLambda lambda;
     @Mock
     Context context;
     @Mock
@@ -50,12 +50,12 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
         when(serviceFactory.getBasketService()).thenReturn(basketService);
         when(context.getLogger()).thenReturn(lambdaLogger);
 
-        lambda = new BookStoreLambda(serviceFactory);
+        lambda = new BookStoreLexLambda(serviceFactory);
     }
 
     @Test
     public void handleRequestWithSimpleRequest() {
-        Map<String, Object> map = ObjectMother.createMapFromJson("simple-search-book-by-title-intent-request.json");
+        Map<String, Object> map = ObjectMother.createMapFromJson("simple-search-book-by-title-intent-request-lex.json");
 
         Object respond = lambda.handleRequest(map, context);
 
@@ -64,7 +64,7 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequest() {
-        Map<String, Object> map = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+        Map<String, Object> map = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
 
         Object respond = lambda.handleRequest(map, context);
 
@@ -73,9 +73,9 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() {
-        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
 
-        LexRespond respond = (LexRespond)lambda.handleRequest(input, context);
+        Response respond = (Response)lambda.handleRequest(input, context);
 
         assertNotNull(respond.getDialogAction());
         assertEquals(DialogAction.FulfillmentState.Fulfilled, respond.getDialogAction().getFulfillmentState());
@@ -88,9 +88,9 @@ public class BookStoreLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestPutsFoundBooksToBasketRepo() {
-        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request.json");
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
         List<Book> foundBookList = ObjectMother.getRandomBookList(3);
-        when(bookStorageService.getBooksWithTitleStartingWith("Some Book Title")).thenReturn(foundBookList);
+        when(bookStorageService.getBooksWithTitleContaining("Some Book Title")).thenReturn(foundBookList);
 
         lambda.handleRequest(input, context);
 

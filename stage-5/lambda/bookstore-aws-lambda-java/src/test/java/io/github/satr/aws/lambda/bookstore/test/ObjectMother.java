@@ -4,17 +4,20 @@ package io.github.satr.aws.lambda.bookstore.test;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
 import com.amazonaws.services.dynamodbv2.local.shared.access.AmazonDynamoDBLocal;
+import com.amazonaws.util.StringInputStream;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BasketItem;
 import io.github.satr.aws.lambda.bookstore.repositories.database.tableentity.BookSearchResultItem;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.request.RequestFactory;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public final class ObjectMother {
@@ -22,12 +25,9 @@ public final class ObjectMother {
     private static Random random = new Random();
 
     public static Map<String, Object> createMapFromJson(String jsonFileName){
-        ClassLoader classLoader = ObjectMother.class.getClassLoader();
-        File jsonFile = new File(classLoader.getResource(jsonFileName).getFile());
-        if(!jsonFile.exists()) {
-            System.out.println("File not found: " + jsonFileName);
+        File jsonFile = getFileFormJsonFile(jsonFileName);
+        if (jsonFile == null)
             return new HashMap<>();
-        }
         jsonObjectMapper = new ObjectMapper();
         try {
             Map<String, Object> dataMap = jsonObjectMapper.readValue(jsonFile, new TypeReference<Map<String, Object>>() {
@@ -39,23 +39,45 @@ public final class ObjectMother {
         }
     }
 
-    public static LexRequest createLexRequestForOrderBook(String bookTitle, String bookAuthor) {
-        LexRequest request = new LexRequest();
+    public static StringInputStream createInputStreamFromJson(String jsonFileName){
+        File jsonFile = getFileFormJsonFile(jsonFileName);
+        if (jsonFile == null)
+            return null;
+        try {
+            return new StringInputStream(FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static File getFileFormJsonFile(String jsonFileName) {
+        ClassLoader classLoader = ObjectMother.class.getClassLoader();
+        File jsonFile = new File(classLoader.getResource(jsonFileName).getFile());
+        if(!jsonFile.exists()) {
+            System.out.println("File not found: " + jsonFileName);
+            return null;
+        }
+        return jsonFile;
+    }
+
+    public static Request createLexRequestForOrderBook(String bookTitle, String bookAuthor) {
+        Request request = new Request();
         request.getSlots().put(IntentSlotName.BookTitle, bookTitle);
         request.getSlots().put(IntentSlotName.BookAuthor, bookAuthor);
         return request;
     }
 
-    public static LexRequest createLexRequestForSelectBook(String chooseFromListAction, String itemNumber, String positionInSequence) {
-        LexRequest request = new LexRequest();
+    public static Request createLexRequestForSelectBook(String chooseFromListAction, String itemNumber, String positionInSequence) {
+        Request request = new Request();
         request.getSlots().put(IntentSlotName.ItemNumber, itemNumber);
         request.getSlots().put(IntentSlotName.PositionInSequence, positionInSequence);
         request.getSlots().put(IntentSlotName.ChooseFromListAction, chooseFromListAction);
         return request;
     }
 
-    public static LexRequest createLexRequestFromJson(String jsonFileName) {
-        return LexRequestFactory.createFrom(ObjectMother.createMapFromJson(jsonFileName));
+    public static Request createLexRequestFromJson(String jsonFileName) {
+        return RequestFactory.createFromLexInput(ObjectMother.createMapFromJson(jsonFileName));
     }
 
     public static String getRandomString() {

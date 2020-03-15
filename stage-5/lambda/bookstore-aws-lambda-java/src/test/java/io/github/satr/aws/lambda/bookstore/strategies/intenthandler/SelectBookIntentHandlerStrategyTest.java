@@ -5,8 +5,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.common.OperationValueResult;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
@@ -49,7 +49,7 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Test
     public void handleFindShowBookWithNumber() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
         when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
@@ -59,7 +59,7 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Test
     public void handleFindShowBookWithPosition() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
         when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
@@ -69,7 +69,7 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Test
     public void handleFindShowBookWithPositionLast() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Last);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Last);
         when(searchBookResultService.getByPositionInSequence("last")).thenReturn(selectedBookResult);
 
         strategy.handle(request, logger);
@@ -79,34 +79,34 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Test
     public void handleCannotFindBookWithNumberReturnsError() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
         when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
         when(selectedBookResult.success()).thenReturn(false);
         when(selectedBookResult.getErrorsAsString(any(String.class))).thenReturn("Some-Error");
 
-        LexRespond respond = strategy.handle(request, logger);
+        Response respond = strategy.handle(request, logger);
 
         assertEquals("Book is not selected:\nSome-Error\nPlease try again", respond.getDialogAction().getMessage().getContent());
     }
 
     @Test
     public void handleCannotFindBookWithPositionReturnsError() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
         when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
         when(selectedBookResult.success()).thenReturn(false);
         when(selectedBookResult.getErrorsAsString(any(String.class))).thenReturn("Some-Error");
 
-        LexRespond respond = strategy.handle(request, logger);
+        Response respond = strategy.handle(request, logger);
 
         assertEquals("Book is not selected:\nSome-Error\nPlease try again", respond.getDialogAction().getMessage().getContent());
     }
 
     @Test
     public void handleCanFindBookWithNumberReturnsBookDescription() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, "1", null);
         when(searchBookResultService.getByNumberInSequence(1)).thenReturn(selectedBookResult);
 
-        LexRespond respond = strategy.handle(request, logger);
+        Response respond = strategy.handle(request, logger);
 
         String messageContent = respond.getDialogAction().getMessage().getContent();
         assertTrue(messageContent.contains("Title: \"" + selectedBook.getTitle() + "\""));
@@ -117,10 +117,10 @@ public class SelectBookIntentHandlerStrategyTest {
 
     @Test
     public void handleCanFindBookWithPositionReturnsBookDescription() {
-        LexRequest request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
+        Request request = ObjectMother.createLexRequestForSelectBook(IntentSlotValue.ChooseFromListAction.Show, null, IntentSlotValue.PositionInSequence.Second);
         when(searchBookResultService.getByPositionInSequence("second")).thenReturn(selectedBookResult);
 
-        LexRespond respond = strategy.handle(request, logger);
+        Response respond = strategy.handle(request, logger);
 
         String messageContent = respond.getDialogAction().getMessage().getContent();
         assertTrue(messageContent.contains("Title: \"" + selectedBook.getTitle() + "\""));

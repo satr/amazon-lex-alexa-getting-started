@@ -6,8 +6,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import io.github.satr.aws.lambda.bookstore.repositories.database.DatabaseRepositoryFactoryImpl;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.request.RequestFactory;
 import io.github.satr.aws.lambda.bookstore.services.*;
 import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.IntentHandlerStrategy;
 import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.IntentHandlerStrategyFactory;
@@ -15,14 +15,14 @@ import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.IntentHandle
 import java.util.Map;
 
 //Lambda with POJO as a respond
-public class BookStoreLambda implements RequestHandler<Map<String, Object>, Object>  {
+public class BookStoreLexLambda implements RequestHandler<Map<String, Object>, Object>  {
     private IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
-    public BookStoreLambda() {
+    public BookStoreLexLambda() {
         this(new ServiceFactoryImpl(new DatabaseRepositoryFactoryImpl(getAwsRegionForDynamoDb())));
     }
 
-    public BookStoreLambda(ServiceFactory serviceFactory) {
+    public BookStoreLexLambda(ServiceFactory serviceFactory) {
         intentHandlerStrategyFactory = new IntentHandlerStrategyFactory(serviceFactory.getBookStorageService(),
                                                                         serviceFactory.getSearchBookResultService(),
                                                                         serviceFactory.getBasketService());
@@ -32,7 +32,7 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     public Object handleRequest(Map<String, Object> input, Context context) {
         LambdaLogger logger = context.getLogger();
         logger.log(input.toString());//Just to show the input in the CloudWatch log
-        LexRequest request = LexRequestFactory.createFrom(input);
+        Request request = RequestFactory.createFromLexInput(input);
         logInputProperties(logger, request);
 
         //Find intent-handle strategy by IntentName
@@ -46,7 +46,7 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
         return Regions.fromName(System.getenv("AWS_REGION"));
     }
 
-    private void logInputProperties(LambdaLogger logger, LexRequest request) {
+    private void logInputProperties(LambdaLogger logger, Request request) {
         logger.log("UserId:" + request.getUserId());
         logger.log("Bot name:" + request.getBotName());
         logger.log("Current intent name:" + request.getIntentName());

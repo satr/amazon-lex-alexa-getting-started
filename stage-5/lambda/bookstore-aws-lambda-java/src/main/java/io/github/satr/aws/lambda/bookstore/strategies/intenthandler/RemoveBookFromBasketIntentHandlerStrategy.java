@@ -1,8 +1,8 @@
 package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 // Copyright © 2020, github.com/satr, MIT License
 
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import io.github.satr.aws.lambda.bookstore.strategies.selectbook.RemoveBookFromBasketStrategy;
@@ -16,7 +16,7 @@ public class RemoveBookFromBasketIntentHandlerStrategy extends AbstractSelectBoo
     }
 
     @Override
-    protected LexRespond customHandle(LexRequest request, LexRespond respond, String itemNumber, String positionInSequence) {
+    protected Response customHandle(Request request, Response respond, String itemNumber, String positionInSequence) {
         selectBookBy(removeBookFromBasketStrategy, itemNumber, positionInSequence)
                 .processSelectedBook(respond);
 

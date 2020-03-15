@@ -4,8 +4,8 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class CompleteOrderIntentHandlerStrategy extends AbstractIntentHandlerStr
     }
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(Request request, LambdaLogger logger) {
         List<Book> booksInBasket = basketService.getBooks();
         if (booksInBasket.isEmpty())
             return getCloseFulfilledLexRespond(request, "Basket is empty.");

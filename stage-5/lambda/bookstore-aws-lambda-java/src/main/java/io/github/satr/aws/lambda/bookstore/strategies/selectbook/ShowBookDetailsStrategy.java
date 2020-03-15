@@ -3,7 +3,7 @@ package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 
 public class ShowBookDetailsStrategy extends AbstractSelectBookStrategy {
@@ -12,7 +12,7 @@ public class ShowBookDetailsStrategy extends AbstractSelectBookStrategy {
     }
 
     @Override
-    protected void processCustom(LexRespond respond, Book selectedBook) {
+    protected void processCustom(Response respond, Book selectedBook) {
         respond.getDialogAction()
                 .getMessage()
                 .setContent(BookFormatter.getFullDescription(selectedBook, "\n"));

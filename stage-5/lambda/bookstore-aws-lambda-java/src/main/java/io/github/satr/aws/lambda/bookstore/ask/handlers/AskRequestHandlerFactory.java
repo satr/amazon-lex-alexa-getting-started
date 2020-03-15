@@ -1,25 +1,25 @@
-package io.github.satr.aws.lambda.bookstore.alexaskillhandlers;
+package io.github.satr.aws.lambda.bookstore.ask.handlers;
 
 import io.github.satr.aws.lambda.bookstore.services.ServiceFactory;
 import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.IntentHandlerStrategyFactory;
 import org.slf4j.Logger;
 
-public class AlexaSkillRequestHandlerFactory {
+public class AskRequestHandlerFactory {
     private final Logger logger;
     private final IntentHandlerStrategyFactory intentHandlerStrategyFactory;
 
-    public AlexaSkillRequestHandlerFactory(ServiceFactory serviceFactory, Logger logger) {
+    public AskRequestHandlerFactory(ServiceFactory serviceFactory, Logger logger) {
         intentHandlerStrategyFactory = new IntentHandlerStrategyFactory(serviceFactory.getBookStorageService(),
                                                                         serviceFactory.getSearchBookResultService(),
                                                                         serviceFactory.getBasketService());
         this.logger = logger;
     }
 
-    public GeneralRequestHandler getRequestHandlerFor(String intentName) {
-        return new GeneralRequestHandler(intentHandlerStrategyFactory, intentName, logger);
+    public GeneralAskRequestHandler getRequestHandlerFor(String intentName) {
+        return new GeneralAskRequestHandler(intentHandlerStrategyFactory, intentName, logger);
     }
 
-    public NotRecognizedIntentHandler getNotRecognizedIntentHandler() {
-        return new NotRecognizedIntentHandler(logger);
+    public NotRecognizedAskIntentHandler getNotRecognizedIntentHandler() {
+        return new NotRecognizedAskIntentHandler(logger);
     }
 }
