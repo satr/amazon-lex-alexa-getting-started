@@ -3,7 +3,7 @@ package io.github.satr.aws.lambda.bookstore.strategies;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.ObjectMother;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class OrderBookIntentHandlerStrategyTest {
     public void handle() {
         LexRequest request = ObjectMother.createLexRequestWithBookBookTitleAndAuthor("Some Book Title", "Some Author");
 
-        LexRespond respond = strategy.handle(request, lambdaLogger);
+        Response respond = strategy.handle(request, lambdaLogger);
 
         assertNotNull(respond);
         assertNotNull(respond.getDialogAction());

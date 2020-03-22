@@ -3,8 +3,8 @@ package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.respond.Message;
+import io.github.satr.aws.lambda.bookstore.response.Response;
+import io.github.satr.aws.lambda.bookstore.response.Message;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 
@@ -17,8 +17,8 @@ public class AddBookToBasketStrategy extends AbstractSelectBookStrategy {
     }
 
     @Override
-    protected void processCustom(LexRespond respond, Book selectedBook) {
-        Message message = respond.getDialogAction().getMessage();
+    protected void processCustom(Response response, Book selectedBook) {
+        Message message = response.getDialogAction().getMessage();
         if(basketService.getBookByIsbn(selectedBook.getIsbn()) != null) {
             message.setContent("This book is already in basket.");
             return;

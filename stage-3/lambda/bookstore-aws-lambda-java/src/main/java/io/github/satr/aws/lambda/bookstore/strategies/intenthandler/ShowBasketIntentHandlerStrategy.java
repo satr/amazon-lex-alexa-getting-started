@@ -3,9 +3,9 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.respond.responsecard.ResponseCard;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.response.Response;
+import io.github.satr.aws.lambda.bookstore.response.responsecard.ResponseCard;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class ShowBasketIntentHandlerStrategy extends AbstractIntentHandlerStrate
     }
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(Request request, LambdaLogger logger) {
         List<Book> booksInBasket = basketService.getBooks();
 
         if (booksInBasket.isEmpty())
@@ -30,12 +30,12 @@ public class ShowBasketIntentHandlerStrategy extends AbstractIntentHandlerStrate
                 "Basket contains %s:\n", BookListFormatter.amountOfBooks(booksInBasket.size())));
         builder.append(String.format("Total: %.2f", booksInBasket.stream().map(Book::getPrice).reduce(Double::sum).get()));
 
-        LexRespond respond = getCloseFulfilledLexRespond(request, builder);
+        Response response = getCloseFulfilledLexRespond(request, builder);
 
         ResponseCard respondCard = getResponseCard();
-        respond.getDialogAction().setResponseCard(respondCard);
+        response.getDialogAction().setResponseCard(respondCard);
 
-        return respond;
+        return response;
     }
 
     private ResponseCard getResponseCard() {

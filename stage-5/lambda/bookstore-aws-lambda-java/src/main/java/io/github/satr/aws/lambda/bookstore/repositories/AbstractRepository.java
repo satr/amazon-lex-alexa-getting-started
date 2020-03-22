@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.repositories;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;

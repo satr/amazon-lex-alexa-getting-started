@@ -5,8 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.request.LexRequestFactory;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.request.RequestFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,23 +34,23 @@ public final class ObjectMother {
         }
     }
 
-    public static LexRequest createLexRequestForOrderBook(String bookTitle, String bookAuthor) {
-        LexRequest request = new LexRequest();
+    public static Request createLexRequestForOrderBook(String bookTitle, String bookAuthor) {
+        Request request = new Request();
         request.getSlots().put(IntentSlotName.BookTitle, bookTitle);
         request.getSlots().put(IntentSlotName.BookAuthor, bookAuthor);
         return request;
     }
 
-    public static LexRequest createLexRequestForSelectBook(String chooseFromListAction, String itemNumber, String positionInSequence) {
-        LexRequest request = new LexRequest();
+    public static Request createLexRequestForSelectBook(String chooseFromListAction, String itemNumber, String positionInSequence) {
+        Request request = new Request();
         request.getSlots().put(IntentSlotName.ItemNumber, itemNumber);
         request.getSlots().put(IntentSlotName.PositionInSequence, positionInSequence);
         request.getSlots().put(IntentSlotName.ChooseFromListAction, chooseFromListAction);
         return request;
     }
 
-    public static LexRequest createLexRequestFromJson(String jsonFileName) {
-        return LexRequestFactory.createFrom(ObjectMother.createMapFromJson(jsonFileName));
+    public static Request createLexRequestFromJson(String jsonFileName) {
+        return RequestFactory.createFrom(ObjectMother.createMapFromJson(jsonFileName));
     }
 
     public static String getRandomString() {

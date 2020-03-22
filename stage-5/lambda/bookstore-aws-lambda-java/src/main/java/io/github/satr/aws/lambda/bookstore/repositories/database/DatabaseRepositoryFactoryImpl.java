@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.repositories.database;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

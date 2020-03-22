@@ -6,8 +6,8 @@ import io.github.satr.aws.lambda.bookstore.common.OperationResult;
 import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
-import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.request.Request;
+import io.github.satr.aws.lambda.bookstore.response.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 
@@ -21,7 +21,7 @@ public class AddBookToBasketIntentHandlerStrategy extends AbstractIntentHandlerS
     }
 
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(Request request, LambdaLogger logger) {
         String selectedBookIsbn = request.getSessionAttribute(SessionAttributeKey.SelectedBookIsbn);
         if(selectedBookIsbn == null) {
             return getCloseFulfilledLexRespond(request, "Please select a book.");

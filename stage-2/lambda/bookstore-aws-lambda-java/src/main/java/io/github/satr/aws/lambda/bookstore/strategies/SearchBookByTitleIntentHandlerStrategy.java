@@ -3,11 +3,11 @@ package io.github.satr.aws.lambda.bookstore.strategies;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import io.github.satr.aws.lambda.bookstore.request.LexRequest;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
+import io.github.satr.aws.lambda.bookstore.response.Response;
 
 public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
     @Override
-    public LexRespond handle(LexRequest request, LambdaLogger logger) {
+    public Response handle(LexRequest request, LambdaLogger logger) {
         String wordsPosition = (String) request.getSlots().get(IntentSlot.WordsPosition);
         String bookTitle = (String) request.getSlots().get(IntentSlot.BookTitle);
         return wordsPosition == null

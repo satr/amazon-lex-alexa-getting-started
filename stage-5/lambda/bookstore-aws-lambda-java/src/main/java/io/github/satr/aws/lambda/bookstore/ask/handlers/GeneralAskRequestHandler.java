@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.ask.handlers;
+// Copyright © 2020, github.com/satr, MIT License
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;

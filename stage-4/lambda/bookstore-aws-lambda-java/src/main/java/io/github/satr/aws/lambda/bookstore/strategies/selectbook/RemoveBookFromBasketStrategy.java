@@ -3,8 +3,8 @@ package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookFormatter;
-import io.github.satr.aws.lambda.bookstore.respond.LexRespond;
-import io.github.satr.aws.lambda.bookstore.respond.Message;
+import io.github.satr.aws.lambda.bookstore.response.Response;
+import io.github.satr.aws.lambda.bookstore.response.Message;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 
@@ -17,7 +17,7 @@ public class RemoveBookFromBasketStrategy extends AbstractSelectBookStrategy {
     }
 
     @Override
-    protected void processCustom(LexRespond respond, Book selectedBook) {
+    protected void processCustom(Response respond, Book selectedBook) {
         Message message = respond.getDialogAction().getMessage();
         if(basketService.getBookCount() == 0) {
             message.setContent("Basket is empty.");

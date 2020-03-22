@@ -1,5 +1,6 @@
 ## Stage 1
 ## AWS Lambda fuction for basic Amazon Lex requests handling
+
 ### Request
 _it can be used as an input for a test_
 ```json
@@ -36,17 +37,17 @@ where:
         "fulfillmentState": "Fulfilled",
         "message": {
             "contentType": "PlainText",
-            "content": "Custom respond message"
+            "content": "Custom response message"
         }
     }
 }
 ```
-### Respond with a `Map<String, Object>`
+### Response with a `Map<String, Object>`
 ```java
-public class BookStoreLambda implements RequestHandler<Map<String, Object>, Object>  {
+public class BookStoreLexLambda implements RequestHandler<Map<String, Object>, Object>  {
     @Override
     public Object handleRequest(Map<String, Object> input, Context context) {
-        String respondMessage = "Custom respond message";
+        String respondMessage = "Custom response message";
 
         Map<String, Object> response = new HashMap<>();
 
@@ -63,12 +64,12 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     }
 }
 ```
-### Respond with a `json`
+### Response with a `json`
 ```java
-public class BookStoreLambda implements RequestHandler<Map<String, Object>, Object>  {
+public class BookStoreLexLambda implements RequestHandler<Map<String, Object>, Object>  {
     @Override
     public Object handleRequest(Map<String, Object> input, Context context) {
-        String respondMessage = "Custom respond message";
+        String respondMessage = "Custom response message";
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode responseNode = mapper.createObjectNode();
@@ -91,16 +92,16 @@ public class BookStoreLambda implements RequestHandler<Map<String, Object>, Obje
     }
 }
 ```
-### Respond with a `POJO`
+### Response with a `POJO`
 ```java
-public class BookStoreLambda implements RequestHandler<Map<String, Object>, Object>  {
+public class BookStoreLexLambda implements RequestHandler<Map<String, Object>, Object>  {
     @Override
     public Object handleRequest(Map<String, Object> input, Context context) {
         String respondMessage = "Custom respond message";
         Message message = new Message(Message.ContentType.PlainText, respondMessage);
         DialogAction dialogAction = new DialogAction(DialogAction.Type.Close, DialogAction.FulfillmentState.Fulfilled, message);
-        LexRespond lexRespond = new LexRespond(dialogAction);
-        return lexRespond;
+        Response response = new Response(dialogAction);
+        return respond;
     }
 }
 ```

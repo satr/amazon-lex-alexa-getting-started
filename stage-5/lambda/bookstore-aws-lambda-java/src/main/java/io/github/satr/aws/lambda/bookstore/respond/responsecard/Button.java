@@ -1,4 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.respond.responsecard;
+// Copyright © 2020, github.com/satr, MIT License
 
 public class Button {
     private final String text;
