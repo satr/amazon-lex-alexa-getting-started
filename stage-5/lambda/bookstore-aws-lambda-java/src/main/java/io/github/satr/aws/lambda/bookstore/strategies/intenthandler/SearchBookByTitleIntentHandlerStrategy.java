@@ -64,7 +64,7 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
 
     private StringBuilder getInvalidTitleMessage(String wordsPosition) {
         StringBuilder builder = new StringBuilder("Sorry, could you repeat what a title " + wordsPosition);
-        if(wordsPosition.equals(IntentSlotValue.WordsPosition.Contains))
+        if(!wordsPosition.equals(IntentSlotValue.WordsPosition.Contains))
             builder.append(" with");
         builder.append("?");
         return builder;

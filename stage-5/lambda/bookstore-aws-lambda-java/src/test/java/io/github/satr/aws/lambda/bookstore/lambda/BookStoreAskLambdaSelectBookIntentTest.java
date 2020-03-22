@@ -15,17 +15,16 @@ import io.github.satr.aws.lambda.bookstore.services.BookStorageService;
 import io.github.satr.aws.lambda.bookstore.services.SearchBookResultService;
 import io.github.satr.aws.lambda.bookstore.services.ServiceFactory;
 import io.github.satr.aws.lambda.bookstore.test.ObjectMother;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static org.junit.Assert.*;
+import static com.amazonaws.util.AWSRequestMetrics.Field.Exception;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -58,7 +57,7 @@ public class BookStoreAskLambdaSelectBookIntentTest {
 
     @Test
     public void handleRequestReturnsRespond() throws IOException {
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         OperationValueResultImpl<Book> result = new OperationValueResultImpl<>();
         Book selectedBook = ObjectMother.getRandomBook();
@@ -74,7 +73,7 @@ public class BookStoreAskLambdaSelectBookIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() throws IOException {
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         OperationValueResultImpl<Book> result = new OperationValueResultImpl<>();
         Book selectedBook = ObjectMother.getRandomBook();
@@ -110,7 +109,7 @@ public class BookStoreAskLambdaSelectBookIntentTest {
         Book selectedBook = ObjectMother.getRandomBook();
         result.setValue(selectedBook);
         when(searchBookResultService.getByPositionInSequence("1st")).thenReturn(result);
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         lambda.handleRequest(inputStream, outputStream, null);

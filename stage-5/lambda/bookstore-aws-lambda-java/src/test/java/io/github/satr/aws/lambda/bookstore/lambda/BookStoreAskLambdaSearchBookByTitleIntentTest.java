@@ -58,7 +58,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestReturnsRespond() throws IOException {
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("full-search-book-by-title-intent-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         lambda.handleRequest(inputStream, outputStream, null);
@@ -70,7 +70,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() throws IOException {
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("full-search-book-by-title-intent-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         lambda.handleRequest(inputStream, outputStream, null);
@@ -113,7 +113,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
         foundBookList.get(1).setTitle("ABC Some Book Title");
         foundBookList.get(2).setTitle("ABC Some Book Title XYZ");
         when(bookStorageService.getBooksWithTitleContaining("Some Book Title")).thenReturn(foundBookList);
-        InputStream inputStream = ObjectMother.createInputStreamFromJson("full-search-book-by-title-intent-request-alexa-skill.json");
+        InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         lambda.handleRequest(inputStream, outputStream, null);

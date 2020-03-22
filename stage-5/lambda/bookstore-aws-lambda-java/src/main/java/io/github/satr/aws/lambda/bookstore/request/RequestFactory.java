@@ -54,7 +54,7 @@ public final class RequestFactory {
     private static String getFirstResolvedSlotValue(Slot item) {
         Resolutions resolutions = item.getResolutions();
         if(resolutions == null)
-            return null;
+            return item.getValue();
         List<Resolution> resolutionsPerAuthority = resolutions.getResolutionsPerAuthority();
         if(resolutionsPerAuthority.isEmpty())
             return null;
