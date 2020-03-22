@@ -22,9 +22,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.amazonaws.util.AWSRequestMetrics.Field.Exception;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,7 +48,7 @@ public class BookStoreAskLambdaSelectBookIntentTest {
     BasketService basketService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         when(serviceFactory.getBookStorageService()).thenReturn(bookStorageService);
         when(serviceFactory.getSearchBookResultService()).thenReturn(searchBookResultService);
         when(serviceFactory.getBasketService()).thenReturn(basketService);
@@ -64,9 +66,10 @@ public class BookStoreAskLambdaSelectBookIntentTest {
         result.setValue(selectedBook);
         when(searchBookResultService.getByPositionInSequence("1st")).thenReturn(result);
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
-        String respondAsString = outputStream.toString();
+        String respondAsString = outputStream.toString(Charset.defaultCharset());
         assertTrue(respondAsString.length() > 0);
         System.out.println(respondAsString);
     }
@@ -80,9 +83,10 @@ public class BookStoreAskLambdaSelectBookIntentTest {
         result.setValue(selectedBook);
         when(searchBookResultService.getByPositionInSequence("1st")).thenReturn(result);
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
-        String respondAsString = outputStream.toString();
+        String respondAsString = outputStream.toString(Charset.defaultCharset());
         assertTrue(respondAsString.length() > 0);
         System.out.println(respondAsString);
 
@@ -112,9 +116,10 @@ public class BookStoreAskLambdaSelectBookIntentTest {
         InputStream inputStream = ObjectMother.createInputStreamFromJson("select-book-by-pos-in-seq-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
-        ResponseEnvelope responseEnvelope = serializer.deserialize(outputStream.toString(), ResponseEnvelope.class);
+        ResponseEnvelope responseEnvelope = serializer.deserialize(outputStream.toString(Charset.defaultCharset()), ResponseEnvelope.class);
         String value = (String) responseEnvelope.getSessionAttributes().get(SessionAttributeKey.SelectedBookIsbn);
         assertEquals(value, selectedBook.getIsbn());
     }
