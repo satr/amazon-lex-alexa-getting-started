@@ -46,4 +46,8 @@ public class Response {
     public void setSessionAttribute(String key, Object value) {
         getSessionAttributes().put(key, value);
     }
+
+    public void removeSessionAttribute(String attributeKey) {
+        getSessionAttributes().remove(attributeKey);
+    }
 }

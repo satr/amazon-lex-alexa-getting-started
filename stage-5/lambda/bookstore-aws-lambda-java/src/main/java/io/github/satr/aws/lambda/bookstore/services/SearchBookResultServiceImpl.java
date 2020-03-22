@@ -43,6 +43,17 @@ public class SearchBookResultServiceImpl implements SearchBookResultService {
     }
 
     @Override
+    public OperationValueResult<Book> getByIsbn(String isbn) {
+        Book book = getResult().stream().filter(b -> b.getIsbn().equals(isbn)).findFirst().orElse(null);
+        OperationValueResultImpl<Book> result = new OperationValueResultImpl<>();
+        if(book != null)
+            result.setValue(book);
+        else
+            result.addError("Book not found by selected ISBN: %s.", isbn);
+        return result;
+    }
+
+    @Override
     public List<Book> getResult() {
         return customerBooksRepository.getBookSearchResult();
     }

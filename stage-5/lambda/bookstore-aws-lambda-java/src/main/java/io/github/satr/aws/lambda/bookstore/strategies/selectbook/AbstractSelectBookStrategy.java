@@ -28,6 +28,11 @@ public abstract class AbstractSelectBookStrategy implements SelectBookStrategy {
         selectedBookResult = searchBookResultService.getByNumberInSequence(itemNumber);
     }
 
+    @Override
+    public void selectBookByIsbn(String bookIsbn) {
+        selectedBookResult = searchBookResultService.getByIsbn(bookIsbn);
+    }
+
     protected OperationValueResult<Book> getSelectedBookResult() {
         return selectedBookResult;
     }
@@ -41,7 +46,7 @@ public abstract class AbstractSelectBookStrategy implements SelectBookStrategy {
             return;
         }
         Book book = selectedBookResult.getValue();
-        respond.getSessionAttributes().put(SessionAttributeKey.SelectedBookIsbn, book.getIsbn());
+        respond.removeSessionAttribute(SessionAttributeKey.SelectedBookIsbn);
         processCustom(respond, book);
     }
 

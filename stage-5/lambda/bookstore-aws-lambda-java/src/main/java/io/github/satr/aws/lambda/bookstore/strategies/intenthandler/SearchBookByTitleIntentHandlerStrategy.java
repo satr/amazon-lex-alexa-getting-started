@@ -58,6 +58,8 @@ public class SearchBookByTitleIntentHandlerStrategy extends AbstractIntentHandle
 
         if(bookSearchResult.size() == 1)
             respond.setSessionAttribute(SessionAttributeKey.SelectedBookIsbn, bookSearchResult.get(0).getIsbn());//auto-select the only found book
+        else
+            respond.removeSessionAttribute(SessionAttributeKey.SelectedBookIsbn);
 
         return respond;
     }

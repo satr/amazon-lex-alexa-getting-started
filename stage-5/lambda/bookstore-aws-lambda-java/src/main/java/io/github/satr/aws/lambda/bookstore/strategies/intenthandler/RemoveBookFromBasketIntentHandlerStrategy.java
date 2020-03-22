@@ -1,6 +1,7 @@
 package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 // Copyright © 2020, github.com/satr, MIT License
 
+import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.request.Request;
 import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
@@ -17,7 +18,7 @@ public class RemoveBookFromBasketIntentHandlerStrategy extends AbstractSelectBoo
 
     @Override
     protected Response customHandle(Request request, Response respond, String itemNumber, String positionInSequence) {
-        selectBookBy(removeBookFromBasketStrategy, itemNumber, positionInSequence)
+        selectBookBy(removeBookFromBasketStrategy, itemNumber, positionInSequence, request.getSessionAttribute(SessionAttributeKey.SelectedBookIsbn))
                 .processSelectedBook(respond);
 
         return respond;

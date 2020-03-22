@@ -20,7 +20,7 @@ public abstract class AbstractSelectBookIntentHandlerStrategy extends AbstractIn
 
     protected abstract Response customHandle(Request request, Response respond, String itemNumber, String positionInSequence);
 
-    protected SelectBookStrategy selectBookBy(SelectBookStrategy selectBookStrategy, String itemNumber, String positionInSequence) {
+    protected SelectBookStrategy selectBookBy(SelectBookStrategy selectBookStrategy, String itemNumber, String positionInSequence, String selectedBookIsbnInSession) {
         Integer itemNumberParsed;
         if (itemNumber != null && (itemNumberParsed = Integer.valueOf(itemNumber)) != null && itemNumberParsed > 0) {
             selectBookStrategy.selectBookByNumberInSequence(itemNumberParsed);
@@ -28,6 +28,10 @@ public abstract class AbstractSelectBookIntentHandlerStrategy extends AbstractIn
         }
         if(positionInSequence != null) {
             selectBookStrategy.selectBookByPositionInList(positionInSequence);
+            return selectBookStrategy;
+        }
+        if(selectedBookIsbnInSession != null && !selectedBookIsbnInSession.isEmpty()) {
+            selectBookStrategy.selectBookByIsbn(selectedBookIsbnInSession);
             return selectBookStrategy;
         }
         return notSelectedBookStrategy;

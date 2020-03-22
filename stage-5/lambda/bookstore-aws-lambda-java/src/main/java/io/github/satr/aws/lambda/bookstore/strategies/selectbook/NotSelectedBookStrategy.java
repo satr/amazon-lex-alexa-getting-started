@@ -16,4 +16,8 @@ public class NotSelectedBookStrategy implements SelectBookStrategy {
     @Override
     public void selectBookByNumberInSequence(Integer itemNumber) {
     }
+
+    @Override
+    public void selectBookByIsbn(String bookIsbn) {
+    }
 }

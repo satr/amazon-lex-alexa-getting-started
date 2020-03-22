@@ -9,5 +9,6 @@ public interface SearchBookResultService {
     void put(List<Book> searchBookResultList);
     OperationValueResult<Book> getByPositionInSequence(String positionInSequence);
     OperationValueResult<Book> getByNumberInSequence(Integer itemNumber);
+    OperationValueResult<Book> getByIsbn(String isbn);
     List<Book> getResult();
 }

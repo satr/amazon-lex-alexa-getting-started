@@ -2,6 +2,7 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 // Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.BookListFormatter;
 import io.github.satr.aws.lambda.bookstore.request.Request;
@@ -22,6 +23,8 @@ public class ShowSearchBookResultIntentHandlerStrategy extends AbstractIntentHan
         String message = bookList.isEmpty()
                 ? "Last search result is empty."
                 : BookListFormatter.getShortDescriptionList(bookList, "Last search result:\n");
+        if(bookList.size() == 1)
+            request.getSessionAttributes().put(SessionAttributeKey.SelectedBookIsbn, bookList.get(0).getIsbn());
         return getCloseFulfilledLexRespond(request, message);
     }
 }

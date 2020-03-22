@@ -7,4 +7,5 @@ public interface SelectBookStrategy {
     void processSelectedBook(Response respond);
     void selectBookByPositionInList(String positionInSequence);
     void selectBookByNumberInSequence(Integer itemNumber);
+    void selectBookByIsbn(String bookIsbn);
 }

@@ -3,6 +3,7 @@ package io.github.satr.aws.lambda.bookstore.strategies.intenthandler;
 
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotName;
 import io.github.satr.aws.lambda.bookstore.constants.IntentSlotValue;
+import io.github.satr.aws.lambda.bookstore.constants.SessionAttributeKey;
 import io.github.satr.aws.lambda.bookstore.request.Request;
 import io.github.satr.aws.lambda.bookstore.respond.Response;
 import io.github.satr.aws.lambda.bookstore.services.BasketService;
@@ -26,7 +27,7 @@ public class SelectBookIntentHandlerStrategy extends AbstractSelectBookIntentHan
         String chooseFromListAction = request.getSlot(IntentSlotName.ChooseFromListAction);
         SelectBookStrategy selectBookStrategy = selectBookStrategies.get(chooseFromListAction);
 
-        selectBookBy(selectBookStrategy, itemNumber, positionInSequence)
+        selectBookBy(selectBookStrategy, itemNumber, positionInSequence, request.getSessionAttribute(SessionAttributeKey.SelectedBookIsbn))
                 .processSelectedBook(respond);
 
         return respond;

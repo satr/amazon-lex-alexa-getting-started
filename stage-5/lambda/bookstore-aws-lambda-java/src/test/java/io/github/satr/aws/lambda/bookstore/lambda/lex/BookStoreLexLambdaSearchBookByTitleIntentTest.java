@@ -1,4 +1,4 @@
-package io.github.satr.aws.lambda.bookstore.lambda;
+package io.github.satr.aws.lambda.bookstore.lambda.lex;
 // Copyright © 2020, github.com/satr, MIT License
 
 import com.amazonaws.services.lambda.runtime.Context;
