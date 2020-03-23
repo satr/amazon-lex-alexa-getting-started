@@ -1,6 +1,11 @@
 ## Stage 1
 ## AWS Lambda fuction for basic Amazon Lex requests handling
 
+#### Create AWS Lambda function:
+ * Name: `BookStoreLexLambdaJavaStage1`
+ * Runtime: `Java 11`
+ * Handler: `io.github.satr.aws.lambda.bookstore.BookStoreLexLambda::handleRequest`
+
 ### Request
 _it can be used as an input for a test_
 ```json

@@ -2,9 +2,9 @@
 ### Add storage in DynamoDB
 
 #### Create AWS Lambda function:
- * Name: `BookStoreLambdaJavaStage4`
+ * Name: `BookStoreLexLambdaJavaStage4`
  * Runtime: `Java 11`
- * Handler: `io.github.satr.aws.lambda.bookstore.BookStoreLambda::handleRequest`
+ * Handler: `io.github.satr.aws.lambda.bookstore.BookStoreLexLambda::handleRequest`
 
 New dependency in the file `build.gradle`
 ```
@@ -16,7 +16,7 @@ dependencies {
 
 Command to upload function-code (when current dir is root-folder of the repo)
 ```
-aws lambda update-function-code --function-name BookStoreLambdaJavaStage4 --zip-file fileb://stage-4/lambda/bookstore-aws-lambda-java/build/libs/bookstore-aws-lambda-java-1.0-Stage-4.jar
+aws lambda update-function-code --function-name BookStoreLexLambdaJavaStage4 --zip-file fileb://stage-4/lambda/bookstore-aws-lambda-java/build/libs/bookstore-aws-lambda-java-1.0-Stage-4.jar
 ```
 ### References related to DynamoDb
 

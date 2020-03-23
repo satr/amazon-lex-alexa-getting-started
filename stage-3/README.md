@@ -1,5 +1,4 @@
 ## Stage 3
-
 ### Add search data basic logic
 
 #### Create AWS Lambda function:
