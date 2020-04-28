@@ -1,0 +1,143 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "amzn1.echo-api.session.f29d7ffa11b00ae4b8",
+    "application": {
+      "applicationId": "amzn1.ask.skill.d1631af5bad8265adb0"
+    },
+    "user": {
+      "userId": "amzn1.ask.account.AGBSEJXO6HK425S"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skil5a-a61e-5bad8265adb0"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.AGBSEJXO6HK42"
+      },
+      "device": {
+        "deviceId": "amzn1.ask.device.AGO54GQR45IM",
+        "supportedInterfaces": {}
+      },
+      "apiEndpoint": "https://api.amazonalexa.com",
+      "apiAccessToken": "eyJ0eXAi"
+    },
+    "Viewport": {
+      "experiences": [
+        {
+          "arcMinuteWidth": 246,
+          "arcMinuteHeight": 144,
+          "canRotate": false,
+          "canResize": false
+        }
+      ],
+      "shape": "RECTANGLE",
+      "pixelWidth": 1024,
+      "pixelHeight": 600,
+      "dpi": 160,
+      "currentPixelWidth": 1024,
+      "currentPixelHeight": 600,
+      "touch": [
+        "SINGLE"
+      ],
+      "video": {
+        "codecs": [
+          "H_264_42",
+          "H_264_41"
+        ]
+      }
+    },
+    "Viewports": [
+      {
+        "type": "APL",
+        "id": "main",
+        "shape": "RECTANGLE",
+        "dpi": 160,
+        "presentationType": "STANDARD",
+        "canRotate": false,
+        "configuration": {
+          "current": {
+            "video": {
+              "codecs": [
+                "H_264_42",
+                "H_264_41"
+              ]
+            },
+            "size": {
+              "type": "DISCRETE",
+              "pixelWidth": 1024,
+              "pixelHeight": 600
+            }
+          }
+        }
+      }
+    ]
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "amzn1.echo-api.request.ea408253-8ff5f2c9c222",
+    "timestamp": "2020-03-15T09:58:18Z",
+    "locale": "en-US",
+    "intent": {
+      "name": "SelectBookIntent",
+      "confirmationStatus": "NONE",
+      "slots": {
+        "PositionInSequence": {
+          "name": "PositionInSequence",
+          "value": "1st",
+          "resolutions": {
+            "resolutionsPerAuthority": [
+              {
+                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.d1631ad8265adb0.PositionInSequence",
+                "status": {
+                  "code": "ER_SUCCESS_MATCH"
+                },
+                "values": [
+                  {
+                    "value": {
+                      "name": "first",
+                      "id": "8b04d5e3775d55efc5ca404d5"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "confirmationStatus": "NONE",
+          "source": "USER"
+        },
+        "ChooseFromListAction": {
+          "name": "ChooseFromListAction",
+          "value": "show",
+          "resolutions": {
+            "resolutionsPerAuthority": [
+              {
+                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.d1631afd-5bad8265adb0.ChooseFromListAction",
+                "status": {
+                  "code": "ER_SUCCESS_MATCH"
+                },
+                "values": [
+                  {
+                    "value": {
+                      "name": "show",
+                      "id": "a7dd12b1dab17"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "confirmationStatus": "NONE",
+          "source": "USER"
+        },
+        "ItemNumber": {
+          "name": "ItemNumber",
+          "confirmationStatus": "NONE"
+        }
+      }
+    }
+  }
+}
