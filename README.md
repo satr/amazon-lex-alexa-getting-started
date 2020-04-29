@@ -8,4 +8,4 @@ Runtime: Java 11
 4. [Add storage in DynamoDB](https://github.com/satr/amazon-lex-alexa-getting-started/tree/master/stage-4)
 5. [Add Amazon Alexa Skill](https://github.com/satr/amazon-lex-alexa-getting-started/tree/master/stage-5)
 6. [Adopt AWS Lambda function output for Alexa voice output](https://github.com/satr/amazon-lex-alexa-getting-started/tree/master/stage-6)
-Work in progress
+
