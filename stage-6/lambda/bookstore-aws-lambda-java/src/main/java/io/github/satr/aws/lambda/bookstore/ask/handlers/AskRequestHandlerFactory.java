@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.ask.handlers;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.services.ServiceFactory;
 import io.github.satr.aws.lambda.bookstore.strategies.intenthandler.AskIntentHandlerStrategyFactory;

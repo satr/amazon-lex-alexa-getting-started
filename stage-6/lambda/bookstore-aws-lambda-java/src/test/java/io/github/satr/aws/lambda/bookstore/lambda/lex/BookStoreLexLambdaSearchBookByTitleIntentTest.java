@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.lambda.lex;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
@@ -64,7 +64,7 @@ public class BookStoreLexLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequest() {
-        Map<String, Object> map = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
+        Map<String, Object> map = ObjectMother.createMapFromJson("full-search-book-contains-in-title-intent-request-lex.json");
 
         Object respond = lambda.handleRequest(map, context);
 
@@ -73,7 +73,7 @@ public class BookStoreLexLambdaSearchBookByTitleIntentTest {
 
     @Test
     public void handleRequestWithFullOrderBookIntentRequestHasCorrectRespond() {
-        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-contains-in-title-intent-request-lex.json");
 
         Response respond = (Response)lambda.handleRequest(input, context);
 
@@ -87,10 +87,32 @@ public class BookStoreLexLambdaSearchBookByTitleIntentTest {
     }
 
     @Test
-    public void handleRequestWithFullOrderBookIntentRequestPutsFoundBooksToBasketRepo() {
-        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-by-title-intent-request-lex.json");
+    public void handleRequestWithFullOrderBookStartedByTitleIntentRequestPutsFoundBooksToBasketRepo() {
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-started-by-title-intent-request-lex.json");
+        List<Book> foundBookList = ObjectMother.getRandomBookList(3);
+        when(bookStorageService.getBooksWithTitleStartingWith("Some Book Title")).thenReturn(foundBookList);
+
+        lambda.handleRequest(input, context);
+
+        verify(searchBookResultService).put(foundBookList);
+    }
+
+    @Test
+    public void handleRequestWithFullOrderBookContainsInTitleIntentRequestPutsFoundBooksToBasketRepo() {
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-contains-in-title-intent-request-lex.json");
         List<Book> foundBookList = ObjectMother.getRandomBookList(3);
         when(bookStorageService.getBooksWithTitleContaining("Some Book Title")).thenReturn(foundBookList);
+
+        lambda.handleRequest(input, context);
+
+        verify(searchBookResultService).put(foundBookList);
+    }
+
+    @Test
+    public void handleRequestWithFullOrderBookEndsByTitleIntentRequestPutsFoundBooksToBasketRepo() {
+        Map<String, Object> input = ObjectMother.createMapFromJson("full-search-book-ends-by-title-intent-request-lex.json");
+        List<Book> foundBookList = ObjectMother.getRandomBookList(3);
+        when(bookStorageService.getBooksWithTitleEndingWith("Some Book Title")).thenReturn(foundBookList);
 
         lambda.handleRequest(input, context);
 

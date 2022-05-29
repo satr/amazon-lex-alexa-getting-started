@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.entity;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import java.util.UUID;
 

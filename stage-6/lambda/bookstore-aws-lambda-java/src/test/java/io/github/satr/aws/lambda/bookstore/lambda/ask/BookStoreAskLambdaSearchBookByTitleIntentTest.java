@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.lambda.ask;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import com.amazon.ask.model.ResponseEnvelope;
 import com.amazon.ask.model.ui.SsmlOutputSpeech;
@@ -61,6 +61,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
         InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
         String respondAsString = outputStream.toString();
@@ -73,6 +74,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
         InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
         String respondAsString = outputStream.toString();
@@ -116,6 +118,7 @@ public class BookStoreAskLambdaSearchBookByTitleIntentTest {
         InputStream inputStream = ObjectMother.createInputStreamFromJson("search-book-by-title-intent-request-ask.json");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+        assert inputStream != null;
         lambda.handleRequest(inputStream, outputStream, null);
 
         verify(searchBookResultService).put(foundBookList);

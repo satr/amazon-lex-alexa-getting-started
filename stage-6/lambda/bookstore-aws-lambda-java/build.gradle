@@ -21,14 +21,14 @@ configurations {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.13'
     testCompile "org.mockito:mockito-all:1.10.19"
-    testImplementation 'com.amazonaws:DynamoDBLocal:1.11.477'
+    testImplementation 'com.amazonaws:DynamoDBLocal:1.16.0'
     dynamodb fileTree (dir: 'lib', include: ["*.dylib", "*.so", "*.dll"])
-    dynamodb "com.amazonaws:DynamoDBLocal:1.11.477"
-    compile "com.amazonaws:aws-lambda-java-core:1.2.0"
-    compile "com.amazonaws:aws-java-sdk-lambda:1.11.728"
-    compile "com.amazonaws:aws-java-sdk-dynamodb:1.11.728"
-    compile group: 'com.amazon.alexa', name: 'ask-sdk', version:'2.27.2'
-    compile group: 'com.amazonaws', name: 'aws-lambda-java-log4j2', version:'1.1.0'
+    dynamodb "com.amazonaws:DynamoDBLocal:1.16.0"
+    compile "com.amazonaws:aws-lambda-java-core:1.2.1"
+    compile "com.amazonaws:aws-java-sdk-lambda:1.12.220"
+    compile "com.amazonaws:aws-java-sdk-dynamodb:1.12.220"
+    compile group: 'com.amazon.alexa', name: 'ask-sdk', version:'2.43.5'
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-log4j2', version:'1.5.1'
 }
 
 jar {

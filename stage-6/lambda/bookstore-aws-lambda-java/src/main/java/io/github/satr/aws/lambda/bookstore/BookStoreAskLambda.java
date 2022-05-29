@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import com.amazon.ask.Skill;
 import com.amazon.ask.SkillStreamHandler;

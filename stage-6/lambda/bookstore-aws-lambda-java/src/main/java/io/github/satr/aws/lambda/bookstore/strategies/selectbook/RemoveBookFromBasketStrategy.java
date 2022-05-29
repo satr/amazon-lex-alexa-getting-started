@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.strategies.selectbook;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 import io.github.satr.aws.lambda.bookstore.entity.Book;
 import io.github.satr.aws.lambda.bookstore.entity.formatter.MessageFormatter;

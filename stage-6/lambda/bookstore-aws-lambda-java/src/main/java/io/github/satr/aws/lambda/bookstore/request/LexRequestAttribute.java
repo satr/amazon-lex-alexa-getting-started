@@ -1,5 +1,5 @@
 package io.github.satr.aws.lambda.bookstore.request;
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 public final class LexRequestAttribute {
     public static final String Bot = "bot";

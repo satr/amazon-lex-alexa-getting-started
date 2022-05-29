@@ -10,7 +10,7 @@ import io.github.satr.aws.lambda.bookstore.services.BasketService;
 
 import java.util.List;
 
-// Copyright © 2020, github.com/satr, MIT License
+// Copyright © 2022, github.com/satr, MIT License
 
 public class ShowBasketIntentHandlerStrategy extends AbstractIntentHandlerStrategy {
     private final BasketService basketService;
